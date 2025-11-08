@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Posts | Bruce2077</title>
+    <title>Posts | Bruce</title>
     <meta name="description" content="" />
 
     
@@ -24,9 +24,10 @@
       }
 
       .container {
-        max-width: 580px;  
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 60px 20px;
+        padding: 60px 32px;
+        box-sizing: border-box;
       }
 
       h1 {
@@ -218,9 +219,10 @@
       
 <style>
   .posts-container {
-    max-width: 750px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 32px;
+    box-sizing: border-box;
   }
   
   .posts-header {
@@ -229,7 +231,7 @@
   
   .posts-title {
     font-family: 'Source Serif Pro', serif;
-    font-size: 28px;
+    font-size: 36px;
     font-weight: 600;
     margin-bottom: 20px;
     color: #4a4b4f;
@@ -238,15 +240,17 @@
   .posts-description {
     color: #666;
     margin-bottom: 30px;
+    font-size: 18px;
   }
   
   .post-list {
     margin-bottom: 40px;
+    display: grid;
+    gap: 24px;
   }
   
   .post-item {
-    margin-bottom: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 24px;
     border-bottom: 1px solid #eee;
   }
   
@@ -266,27 +270,28 @@
   
   .post-item-title {
     font-family: 'Source Serif Pro', serif;
-    font-size: 22px;
+    font-size: 28px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     transition: color 0.2s;
   }
   
   .post-item-date {
     color: #9d9d9d;
     font-style: italic;
-    margin-bottom: 8px;
-    font-size: 14px;
+    margin-bottom: 12px;
+    font-size: 15px;
   }
   
   .post-item-description {
     color: #666;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 16px;
   }
   
   .back-link {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 30px;
     color: #8f6a60;
     text-decoration: underline;
@@ -296,6 +301,16 @@
   
   .back-link:hover {
     color: #6b5046;
+  }
+
+  @media (max-width: 768px) {
+    .posts-container {
+      padding: 0 20px;
+    }
+
+    .posts-title {
+      font-size: 30px;
+    }
   }
 </style>
 
@@ -308,82 +323,82 @@
   <div class="post-list">
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/li-xiang-2020-transcript/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/li-xiang-2020-transcript/" class="post-link">
         <h2 class="post-item-title">李想2020演讲实录：从三次创业看专业CEO的认知方法论</h2>
         <div class="post-item-date">April 20, 2025</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/magiconion-orleans-overview/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/magiconion-orleans-overview/" class="post-link">
         <h2 class="post-item-title">MagicOnion 结合 Orleans</h2>
         <div class="post-item-date">July 23, 2024</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/magiconion-messagepack-realtime/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/magiconion-messagepack-realtime/" class="post-link">
         <h2 class="post-item-title">C# 使用 MagicOnion &#43; MessagePack &#43; YetAnotherHttpHandler 进行实时通信</h2>
         <div class="post-item-date">July 19, 2024</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/protobuf-encoding-guide/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/protobuf-encoding-guide/" class="post-link">
         <h2 class="post-item-title">protobuf 编码</h2>
         <div class="post-item-date">March 2, 2024</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/electron-getting-started/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/electron-getting-started/" class="post-link">
         <h2 class="post-item-title">Electron 入门</h2>
         <div class="post-item-date">January 7, 2024</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/nestjs-request-logging/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/nestjs-request-logging/" class="post-link">
         <h2 class="post-item-title">Nestjs 项目中如何统计接口的耗时，并且打印请求和响应的数据</h2>
         <div class="post-item-date">August 18, 2023</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/sign-in-with-apple-guide/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/sign-in-with-apple-guide/" class="post-link">
         <h2 class="post-item-title">Sign in with Apple</h2>
         <div class="post-item-date">April 3, 2023</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/pinus-http-plugin-guide/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/pinus-http-plugin-guide/" class="post-link">
         <h2 class="post-item-title">使用 pinus-http-plugin</h2>
         <div class="post-item-date">December 19, 2022</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/netgear-r6400-unbrick/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/netgear-r6400-unbrick/" class="post-link">
         <h2 class="post-item-title">网件 r6400 变砖</h2>
         <div class="post-item-date">November 12, 2022</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
     <div class="post-item">
-      <a href="https://www.bruce2077.xyz/posts/js-object-readonly-guide/" class="post-link">
+      <a href="http://bruce48x.github.io/posts/js-object-readonly-guide/" class="post-link">
         <h2 class="post-item-title">将 js 对象设置为只读</h2>
         <div class="post-item-date">November 12, 2022</div>
-        <div class="post-item-description"></div>
+        
       </a>
     </div>
     
@@ -411,3 +426,4 @@
 
   </body>
 </html>
+

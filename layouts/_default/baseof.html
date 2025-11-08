@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="zh-cn">
+<html lang="{{ .Site.LanguageCode }}">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tags | Bruce</title>
-    <meta name="description" content="" />
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ .Site.Params.description }}" />
 
-    
+    <!-- Google Fonts - Similar to original fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
@@ -128,7 +128,7 @@
         }
       }
       
-       
+      /* Code block styling with horizontal scrolling */
       pre {
         background-color: #f5f5f5;
         padding: 16px;
@@ -151,7 +151,7 @@
         overflow-x: auto;
       }
       
-       
+      /* Inline code styling */
       p code, li code, h1 code, h2 code, h3 code {
         background-color: #f5f5f5;
         padding: 3px 5px;
@@ -161,7 +161,7 @@
         word-wrap: break-word;
       }
 
-       
+      /* Force MathJax block equations to be scrollable and not overflow container */
       .post-content mjx-container[display="true"] {
         display: block;
         text-align: center;
@@ -175,7 +175,7 @@
         padding-bottom: 1em;
         min-height: unset;
       }
-       
+      /* Prevent inner math from breaking out of container */
       .post-content mjx-container[display="true"] mjx-math {
         min-width: 0 !important;
         max-width: 100% !important;
@@ -185,13 +185,13 @@
         box-sizing: border-box;
         min-height: unset;
       }
-       
+      /* Remove vertical scroll from .post-content as well */
       .post-content {
         overflow-x: auto;
         overflow-y: visible;
       }
       
-       
+      /* Center images in posts */
       .post-content img {
         display: block;
         margin-left: auto;
@@ -203,7 +203,7 @@
         margin-bottom: 1.5em;
       }
       
-       
+      /* Image captions */
       .post-content img + em {
         display: block;
         text-align: center;
@@ -216,134 +216,9 @@
   </head>
   <body>
     <div class="container">
-      
-<style>
-  .posts-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 32px;
-    box-sizing: border-box;
-  }
-  
-  .posts-header {
-    margin-bottom: 40px;
-  }
-  
-  .posts-title {
-    font-family: 'Source Serif Pro', serif;
-    font-size: 36px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #4a4b4f;
-  }
-  
-  .posts-description {
-    color: #666;
-    margin-bottom: 30px;
-    font-size: 18px;
-  }
-  
-  .post-list {
-    margin-bottom: 40px;
-    display: grid;
-    gap: 24px;
-  }
-  
-  .post-item {
-    padding-bottom: 24px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .post-item:last-child {
-    border-bottom: none;
-  }
-  
-  .post-link {
-    display: block;
-    text-decoration: none;
-    color: #4a4b4f;
-  }
-  
-  .post-link:hover .post-item-title {
-    color: #8f6a60;
-  }
-  
-  .post-item-title {
-    font-family: 'Source Serif Pro', serif;
-    font-size: 28px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    transition: color 0.2s;
-  }
-  
-  .post-item-date {
-    color: #9d9d9d;
-    font-style: italic;
-    margin-bottom: 12px;
-    font-size: 15px;
-  }
-  
-  .post-item-description {
-    color: #666;
-    line-height: 1.6;
-    font-size: 16px;
-  }
-  
-  .back-link {
-    display: inline-block;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    color: #8f6a60;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
-  }
-  
-  .back-link:hover {
-    color: #6b5046;
-  }
-
-  @media (max-width: 768px) {
-    .posts-container {
-      padding: 0 20px;
-    }
-
-    .posts-title {
-      font-size: 30px;
-    }
-  }
-</style>
-
-<div class="posts-container">
-  <div class="posts-header">
-    <h1 class="posts-title">Tags</h1>
-    
-  </div>
-  
-  <div class="post-list">
-    
-  </div>
-  
-  <a href="/" class="back-link">← Back to home</a>
-</div>
-
+      {{ block "main" . }}{{ end }}
     </div>
-    
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true,
-      processEnvironments: true
-    },
-    options: {
-      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-    }
-  };
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-
+    {{ partial "math.html" . }}
   </body>
 </html>
 

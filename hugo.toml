@@ -1,5 +1,5 @@
-baseURL = 'https://www.bruce2077.xyz/'
+baseURL = 'http://bruce48x.github.io/'
 languageCode = 'zh-cn'
-title = 'Bruce2077'
+title = 'Bruce'
 
 theme = 'ritzy'

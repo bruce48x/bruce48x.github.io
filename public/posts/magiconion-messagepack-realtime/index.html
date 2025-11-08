@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>C# 使用 MagicOnion &#43; MessagePack &#43; YetAnotherHttpHandler 进行实时通信 | Bruce2077</title>
+    <title>C# 使用 MagicOnion &#43; MessagePack &#43; YetAnotherHttpHandler 进行实时通信 | Bruce</title>
     <meta name="description" content="" />
 
     
@@ -24,9 +24,10 @@
       }
 
       .container {
-        max-width: 580px;  
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 60px 20px;
+        padding: 60px 32px;
+        box-sizing: border-box;
       }
 
       h1 {
@@ -218,20 +219,21 @@
       
 <style>
   .post-container {
-    max-width: 580px;  
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 32px;
+    box-sizing: border-box;
   }
   
   .post-header {
-    margin-bottom: 40px;
+    margin-bottom: 48px;
   }
   
   .post-title {
     font-family: 'Source Serif Pro', serif;
-    font-size: 28px;
+    font-size: 36px;
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     color: #4a4b4f;
   }
   
@@ -245,31 +247,35 @@
     font-style: italic;
     color: #666;
     margin-bottom: 30px;
-    font-size: 17px;
+    font-size: 18px;
   }
   
   .post-content {
     line-height: 1.8;
   }
   
-  .post-content h2 {
+  .post-content h2,
+  .post-content h3,
+  .post-content h4 {
     font-family: 'Source Serif Pro', serif;
-    font-size: 24px;
     font-weight: 600;
-    margin: 30px 0 20px 0;
+    margin: 40px 0 20px 0;
     color: #4a4b4f;
   }
+
+  .post-content h2 { font-size: 30px; }
+  .post-content h3 { font-size: 24px; }
+  .post-content h4 { font-size: 20px; }
   
   .post-content p {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
   
   .post-content img {
     display: block;
-    width: 80%;
-    max-width: 80%;
-    height: auto;
     margin: 2rem auto;
+    max-width: 100%;
+    height: auto;
     border-radius: 4px;
   }
   
@@ -279,7 +285,7 @@
     text-align: center;
     font-size: 0.9em;
     color: #777;
-    margin-top: -0.5rem;
+    margin-top: -0.75rem;
     margin-bottom: 2rem;
   }
   
@@ -289,7 +295,7 @@
   
   .back-link {
     display: inline-block;
-    margin-top: 50px;
+    margin-top: 60px;
     margin-bottom: 30px;
     color: #8f6a60;
     text-decoration: underline;
@@ -300,12 +306,27 @@
   .back-link:hover {
     color: #6b5046;
   }
+
+  @media (max-width: 768px) {
+    .post-container {
+      padding: 0 20px;
+    }
+
+    .post-title {
+      font-size: 28px;
+    }
+
+    .post-content h2 { font-size: 26px; }
+    .post-content h3 { font-size: 22px; }
+    .post-content h4 { font-size: 20px; }
+  }
 </style>
 
 <div class="post-container">
   <div class="post-header">
     <h1 class="post-title">C# 使用 MagicOnion &#43; MessagePack &#43; YetAnotherHttpHandler 进行实时通信</h1>
     <div class="post-date">July 19, 2024</div>
+    
   </div>
   
   <div class="post-content">
@@ -1092,3 +1113,4 @@
 
   </body>
 </html>
+
