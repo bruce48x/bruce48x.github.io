@@ -2,4 +2,8 @@ baseURL = 'http://bruce48x.github.io/'
 languageCode = 'zh-cn'
 title = 'Bruce'
 
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
+
 theme = 'ritzy'
