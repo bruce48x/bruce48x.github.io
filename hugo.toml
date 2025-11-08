@@ -1,6 +1,6 @@
-baseURL = 'http://bruce48x.github.io/'
+baseURL = 'https://www.bruce2077.xyz/'
 languageCode = 'zh-cn'
-title = 'Bruce'
+title = 'Bruce2077'
 
 [caches]
   [caches.images]
