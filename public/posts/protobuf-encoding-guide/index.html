@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>protobuf 编码 | Bruce2077</title>
+    <meta name="description" content="" />
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #4a4b4f;
+        background-color: #fbfbfb;
+      }
+
+      .container {
+        max-width: 580px;  
+        margin: 0 auto;
+        padding: 60px 20px;
+      }
+
+      h1 {
+        font-family: 'Source Serif Pro', serif;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 0 40px 0;
+        color: #4a4b4f;
+      }
+
+      p {
+        margin: 0 0 20px 0;
+        line-height: 1.7;
+      }
+
+      a {
+        color: #8f6a60;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+
+      a:hover {
+        color: #6b5046;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .works-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #4a4b4f;
+      }
+
+      .work-item {
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+
+      .work-link {
+        display: block;
+        text-decoration: none;
+        color: #4a4b4f;
+      }
+
+      .work-link:hover {
+        opacity: 0.8;
+      }
+
+      .work-title {
+        font-weight: 500;
+      }
+
+      .publication {
+        color: #8f6a60;
+      }
+
+      .year {
+        color: #9d9d9d;
+      }
+
+      .description {
+        color: #9d9d9d;
+        font-style: italic;
+        margin-top: 4px;
+      }
+
+      .contact {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px solid #e5e5e5;
+      }
+
+      .footer-image {
+        margin-top: 30px;
+        text-align: left;
+      }
+
+      .footer-image img {
+        width: 60px;
+        height: auto;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 40px 20px;
+        }
+
+        h1 {
+          font-size: 22px;
+        }
+
+        body {
+          font-size: 15px;
+        }
+      }
+      
+       
+      pre {
+        background-color: #f5f5f5;
+        padding: 16px;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+      
+      code {
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      
+      pre code {
+        display: block;
+        white-space: pre !important;
+        word-wrap: normal !important;
+        word-break: normal;
+        overflow-x: auto;
+      }
+      
+       
+      p code, li code, h1 code, h2 code, h3 code {
+        background-color: #f5f5f5;
+        padding: 3px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+       
+      .post-content mjx-container[display="true"] {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        min-height: unset;
+      }
+       
+      .post-content mjx-container[display="true"] mjx-math {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        white-space: pre;
+        box-sizing: border-box;
+        min-height: unset;
+      }
+       
+      .post-content {
+        overflow-x: auto;
+        overflow-y: visible;
+      }
+      
+       
+      .post-content img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+      }
+      
+       
+      .post-content img + em {
+        display: block;
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+        margin-top: -1em;
+        margin-bottom: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      
+<style>
+  .post-container {
+    max-width: 580px;  
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .post-header {
+    margin-bottom: 40px;
+  }
+  
+  .post-title {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4a4b4f;
+  }
+  
+  .post-date {
+    color: #9d9d9d;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  
+  .post-description {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 17px;
+  }
+  
+  .post-content {
+    line-height: 1.8;
+  }
+  
+  .post-content h2 {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 30px 0 20px 0;
+    color: #4a4b4f;
+  }
+  
+  .post-content p {
+    margin-bottom: 20px;
+  }
+  
+  .post-content img {
+    display: block;
+    width: 80%;
+    max-width: 80%;
+    height: auto;
+    margin: 2rem auto;
+    border-radius: 4px;
+  }
+  
+   
+  .post-content img + em {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: #777;
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .post-content em {
+    color: #666;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #8f6a60;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  
+  .back-link:hover {
+    color: #6b5046;
+  }
+</style>
+
+<div class="post-container">
+  <div class="post-header">
+    <h1 class="post-title">protobuf 编码</h1>
+    <div class="post-date">March 2, 2024</div>
+  </div>
+  
+  <div class="post-content">
+    <h1 id="引言">引言</h1>
+<p>假设有如下的消息定义</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Person</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> age <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> height <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> weight <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>有如下数据:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> { 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;kobe&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">198</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">120</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>序列化后得到的数据是 <code>0a056272756365102118ac012041</code>，跟 json 字符串相比明显长度变短了</p>
+<p>这背后的原理是什么呢，请往下看</p>
+<h2 id="消息结构">消息结构</h2>
+<p>protobuf 把数据分为了以下几类：</p>
+<p>表格1:</p>
+<table>
+  <thead>
+      <tr>
+          <th>&mdash;</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<p>类型0 的是可变长度的数字类型，在数据中有大量小数字的情况下可以达到极高的压缩效率</p>
+<p>类型1 和 类型5 分别是 64 位和 32 位的数字</p>
+<p>类型2 的是靠长度值 (LEN) 来确定数据长度的类型</p>
+<h2 id="编码规则">编码规则</h2>
+<p>接下来逐一看看各种类型是如何编码的</p>
+<h3 id="1-数字类型">1 数字类型</h3>
+<p>先看看最基本的类型</p>
+<h4 id="11-可变长度的数字类型">1.1 可变长度的数字类型</h4>
+<p>可变长度的数字类型就是 类型0，包括了 32位整数、64位整数和布尔型、枚举型</p>
+<p>可变长度的好处就是在数字较小的时候，编码占用的数据也小</p>
+<p>用一个例子来说明</p>
+<p>有结构如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgInt</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> field1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>数据如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>编码后数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>080c
+</span></span></code></pre></div><p>用二进制表示就是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>08 = 0000 1000 
+</span></span><span style="display:flex;"><span>0c = 0000 1100
+</span></span></code></pre></div><p>其中第一个字节是 TAG，分为前后两段，前5位是消息编号，后3位是类型</p>
+<p>在这个例子里，消息编号是1，类型是0</p>
+<p>第二个字节的 0000 1100 转成10进制就是12</p>
+<p>由此可见，protobuf 编码后使用消息编号和ID来区分数据，消息的KEY是不会编码进去的</p>
+<h4 id="12-固定长度的数字类型">1.2 固定长度的数字类型</h4>
+<p>固定长度就是 类型1 和 类型5，包括 float、double、fixed32、fixed64 等等</p>
+<p>// todo</p>
+<h3 id="2-按长度划分的类型">2 按长度划分的类型</h3>
+<h3 id="21-字符串">2.1 字符串</h3>
+<p>// todo</p>
+<h3 id="22-字节数组">2.2 字节数组</h3>
+<p>// todo</p>
+<h3 id="23-内嵌-message">2.3 内嵌 message</h3>
+<p>举例：有结构如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgEmbeddedMsg</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Msg1</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">string</span> field1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  }<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  Msg1 field1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>有数据：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field1</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">field1</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;abc&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>编码后数据：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a050a03616263
+</span></span></code></pre></div><p>同样，转成二进制，来分析 TAG</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a = 00001 010 = 编号1，类型2 
+</span></span><span style="display:flex;"><span>05 = 长度：5
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1，类型2
+</span></span><span style="display:flex;"><span>03 = 长度：3
+</span></span><span style="display:flex;"><span>61 = 数据：a
+</span></span><span style="display:flex;"><span>62 = 数据：b
+</span></span><span style="display:flex;"><span>63 = 数据：c
+</span></span></code></pre></div><h3 id="3-数组">3 数组</h3>
+<p>数组可以包含基本类型，也可以是 message</p>
+<h3 id="31-数组元素是基本类型">3.1 数组元素是基本类型</h3>
+<p>有结构如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgRepeatedInt</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">int32</span> field1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>数据如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field1</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>]
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>编码结果</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a03010203
+</span></span></code></pre></div><p>同样，把 TAG 转成二进制来分析</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>03 = 长度：3
+</span></span><span style="display:flex;"><span>01 = 数据：1
+</span></span><span style="display:flex;"><span>02 = 数据：2
+</span></span><span style="display:flex;"><span>03 = 数据：3
+</span></span></code></pre></div><h4 id="32-数组元素是-message">3.2 数组元素是 message</h4>
+<p>结构是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgRepeatedMsg</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Msg1</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">string</span> key <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  }<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">repeated</span> Msg1 field1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>数据是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field1</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span> }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>编码后的数据是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a050a016110010a050a016210020a050a01631003
+</span></span></code></pre></div><p>分析一下编码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>第一段数据
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>05 = 长度：5
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>01 = 长度：1
+</span></span><span style="display:flex;"><span>61 = 数据：a
+</span></span><span style="display:flex;"><span>10 = 00010 000 = 编号2 和 类型0
+</span></span><span style="display:flex;"><span>01 = 数据：1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第二段数据
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>05 = 长度：5
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>01 = 长度：1
+</span></span><span style="display:flex;"><span>62 = 数据：a
+</span></span><span style="display:flex;"><span>10 = 00010 000 = 编号2 和 类型0
+</span></span><span style="display:flex;"><span>02 = 数据：2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第三段数据
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>05 = 长度：5
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>01 = 长度：1
+</span></span><span style="display:flex;"><span>63 = 数据：a
+</span></span><span style="display:flex;"><span>10 = 00010 000 = 编号2 和 类型0
+</span></span><span style="display:flex;"><span>03 = 数据：3
+</span></span></code></pre></div><p>可以看出 message 数组的编码不像 uint32 数组是有一个 总长度 值，</p>
+<p>如果这两种数组混合编码会是什么样呢，往下看</p>
+<h4 id="33-多数组">3.3 多数组</h4>
+<p>结构是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgMultipleArray</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Msg1</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">string</span> key <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  }<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">uint32</span> arr1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">repeated</span> Msg1 arr2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">uint32</span> arr3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>数据是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr1</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr2</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span> }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr3</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>],
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>编码后的数据是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a0301020312050a0161100112050a0162100212050a016310031a03010203
+</span></span></code></pre></div><p>分析一下编码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>第 1 段数据
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>03 = 长度：3
+</span></span><span style="display:flex;"><span>01 = 数据：1
+</span></span><span style="display:flex;"><span>02 = 数据：2
+</span></span><span style="display:flex;"><span>03 = 数据：3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第 2.1 段数据
+</span></span><span style="display:flex;"><span>12 = 00010 010 = 编号2 和 类型2
+</span></span><span style="display:flex;"><span>05 = 长度：5
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>01 = 长度：1
+</span></span><span style="display:flex;"><span>61 = 数据：a
+</span></span><span style="display:flex;"><span>10 = 00010 000 = 编号2 和 类型0
+</span></span><span style="display:flex;"><span>01 = 数据：1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第 2.2 段数据
+</span></span><span style="display:flex;"><span>12 = 00010 010 = 编号2 和 类型2
+</span></span><span style="display:flex;"><span>05 = 长度：5
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>01 = 长度：1
+</span></span><span style="display:flex;"><span>62 = 数据：b
+</span></span><span style="display:flex;"><span>10 = 00010 000 = 编号2 和 类型0
+</span></span><span style="display:flex;"><span>02 = 数据：2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第 2.3 段数据
+</span></span><span style="display:flex;"><span>12 = 00010 010 = 编号2 和 类型2
+</span></span><span style="display:flex;"><span>05 = 长度：5
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>01 = 长度：1
+</span></span><span style="display:flex;"><span>63 = 数据：c
+</span></span><span style="display:flex;"><span>10 = 00010 000 = 编号2 和 类型0
+</span></span><span style="display:flex;"><span>03 = 数据：3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第 3 段数据
+</span></span><span style="display:flex;"><span>1a = 00011 010 = 编号3 和 类型2
+</span></span><span style="display:flex;"><span>03 = 长度：3
+</span></span><span style="display:flex;"><span>01 = 数据：1
+</span></span><span style="display:flex;"><span>02 = 数据：2
+</span></span><span style="display:flex;"><span>03 = 数据：3
+</span></span></code></pre></div><p>如果再复杂一些，是嵌套多层得数组呢？继续往下看</p>
+<h4 id="34-嵌套数组">3.4 嵌套数组</h4>
+<p>结构是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgNestedArray</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Msg1</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">string</span> key <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">uint32</span> arr1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  }<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">uint32</span> arr1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">repeated</span> Msg1 arr2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">repeated</span> <span style="color:#66d9ef">uint32</span> arr3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>相比例子 3.3，其中 Msg1 多了第3个字段：名为 arr1 的 uint32 数组</p>
+<p>数据是:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr1</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr2</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;a&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">arr1</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>] },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;b&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">arr1</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>] },
+</span></span><span style="display:flex;"><span>        { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;c&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">arr1</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>] }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arr3</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>],
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>编码后的数据是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a03010203120a0a016110011a03030201120a0a016210021a03030201120a0a016310031a030302011a03010203
+</span></span></code></pre></div><p>分析一下编码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>第 1 段数据
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>03 = 长度：3
+</span></span><span style="display:flex;"><span>01 = 数据：1
+</span></span><span style="display:flex;"><span>02 = 数据：2
+</span></span><span style="display:flex;"><span>03 = 数据：3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第 2.1 段数据
+</span></span><span style="display:flex;"><span>12 = 00010 010 = 编号2 和 类型2
+</span></span><span style="display:flex;"><span>0a = 长度：10
+</span></span><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>01 = 长度：1
+</span></span><span style="display:flex;"><span>61 = 数据：a
+</span></span><span style="display:flex;"><span>10 = 00010 000 = 编号2 和 类型0
+</span></span><span style="display:flex;"><span>01 = 数据：1
+</span></span><span style="display:flex;"><span>1a = 00011 010 = 编号3 和 类型2
+</span></span><span style="display:flex;"><span>03 = 长度：3
+</span></span><span style="display:flex;"><span>03 = 数据：3
+</span></span><span style="display:flex;"><span>02 = 数据：2
+</span></span><span style="display:flex;"><span>01 = 数据：1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第 2.2 段数据（与2.1类似）
+</span></span><span style="display:flex;"><span>12
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>62
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>02
+</span></span><span style="display:flex;"><span>1a
+</span></span><span style="display:flex;"><span>03
+</span></span><span style="display:flex;"><span>03
+</span></span><span style="display:flex;"><span>02
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第 2.3 段数据（与2.1类似）
+</span></span><span style="display:flex;"><span>12
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>63
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>03
+</span></span><span style="display:flex;"><span>1a
+</span></span><span style="display:flex;"><span>03
+</span></span><span style="display:flex;"><span>03
+</span></span><span style="display:flex;"><span>02
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>第 3 段数据
+</span></span><span style="display:flex;"><span>1a = 00011 010 = 编号3 和 类型2
+</span></span><span style="display:flex;"><span>03 = 长度：3
+</span></span><span style="display:flex;"><span>01 = 数据：1
+</span></span><span style="display:flex;"><span>02 = 数据：2
+</span></span><span style="display:flex;"><span>03 = 数据：3
+</span></span></code></pre></div><h3 id="4-字典">4 字典</h3>
+<h4 id="41-字典值是基础类型">4.1 字典值是基础类型</h4>
+<p>结构是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgMapStringInt</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  map&lt;<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">int32</span>&gt; field1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>数据是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field1</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>编码后的数据是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a050a016110010a050a016210020a050a01631003
+</span></span></code></pre></div><p>有趣的事情来了</p>
+<p>编码的结果跟之前例子 3.2 的 message 数组是一样的</p>
+<p>protobuf 把 map 里的每一对 key-value 当作数组的元素来处理。</p>
+<h4 id="42-字典值是-message">4.2 字典值是 message</h4>
+<p>结构：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgMap</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Msg1</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">string</span> key <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  }<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  map&lt;<span style="color:#66d9ef">string</span>, Msg1&gt; field1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>数据：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">field1</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;x&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> },
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;y&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> },
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;c&#39;</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;z&#39;</span>, <span style="color:#a6e22e">value</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span> }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>编码后数据：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a0a0a016112050a017810010a0a0a016212050a017910020a0a0a016312050a017a1003
+</span></span></code></pre></div><p>转二进制进行分析：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>0a = 00001 010 = 编号1 和 类型2
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>61
+</span></span><span style="display:flex;"><span>12
+</span></span><span style="display:flex;"><span>05
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>78
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>62
+</span></span><span style="display:flex;"><span>12
+</span></span><span style="display:flex;"><span>05
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>79
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>02
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>63
+</span></span><span style="display:flex;"><span>12
+</span></span><span style="display:flex;"><span>05
+</span></span><span style="display:flex;"><span>0a
+</span></span><span style="display:flex;"><span>01
+</span></span><span style="display:flex;"><span>7a
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>03
+</span></span></code></pre></div><h2 id="最后">最后</h2>
+<p>看到这儿，你可以分析出本文最初的例子的编码为什么是 <code>0a056272756365102118ac012041</code> 了吗，留这个作业给读者自己动动手。</p>
+
+  </div>
+  
+  <a href="/" class="back-link">← Back to home</a>
+</div>
+
+    </div>
+    
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  </body>
+</html>

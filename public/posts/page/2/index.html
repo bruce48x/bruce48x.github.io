@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>Posts :: Bruce2077</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="http://localhost:1313/posts/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="http://localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Posts">
+<meta property="og:description" content="" />
+<meta property="og:url" content="http://localhost:1313/posts/" />
+<meta property="og:site_name" content="Bruce2077" />
+
+  <meta property="og:image" content="http://localhost:1313/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+
+
+
+  <link href="/posts/index.xml" rel="alternate" type="application/rss+xml" title="Bruce2077" />
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="http://localhost:1313/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+  
+  <div class="posts">
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/%E7%BD%91%E4%BB%B6-r6400-%E5%8F%98%E7%A0%96/">网件 r6400 变砖</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>本篇记录一次r6400变砖后的救机过程 之前刷机玩，刷错固件，导致路由变砖 一度以为没救了 实际是因为搜索的质量不高，没有按照正确的做法来操作 只要按照 <a href="https://github.com/jclehner/nmrpflash">nmrpflash</a> 所教的方法来操作，救砖是很轻松的，而且不需要别的工具，只要一根网线把路由器跟电脑连起来就可以</p>
+<p>准备的软件：</p>
+<ol>
+<li>windows 系统（其实 Mac 和 Linux 都是可以的，由于我是在 win10 上操作，所以这里列出的是 windows）</li>
+<li>nmrpflash.exe <a href="https://github.com/jclehner/nmrpflash/releases/tag/v0.9.16">下载</a></li>
+<li>Npcap <a href="https://npcap.com/dist/npcap-1.60.exe">下载</a></li>
+<li>R6400 的固件 <a href="https://www.netgear.com/support/product/r6400.aspx#Firmware%20Version%201.0.1.76">下载</a></li>
+</ol>
+<p>操作步骤</p>
+<ol>
+<li>安装 Npcap</li>
+<li>用网线连接路由器和你的电脑，路由器的部分连接在1号lan口</li>
+<li>把 nmrpflash.exe 和固件文件放到 D 盘根目录下（其实哪个盘都可以，我这里按自己的操作过程来说明）</li>
+<li>以管理员权限运行 cmd，输入命令 <code>D:</code> 进入D盘</li>
+<li>在 cmd 中输入命令 <code>nmrpflash.exe -L</code>，会列出当前路由器的列表 类似这样的结果 ```sh
+eth10      0.0.0.0      ca:fe:ba:be:45:67</li>
+</ol>
+<pre tabindex="0"><code>6. 把路由器关机
+7. 输入命令 `nmrpflash.exe -i eth10 -f &lt;固件文件名&gt;`会看到 `Waiting for Ethernet connection.` 这个提示
+8. 把路由器开机 等待运行结束，当看到最后有这么一句 `Reboot your device now`就说明成功了 ```sh
+Advertising NMRP server on eth2 ... /
+Received configuration request from fe:ed:1b:ad:f0:0d
+Sending configuration: 10.164.183.252/24
+Received upload request: filename &#39;firmware&#39;.
+Uploading EX2700-V1.0.1.8.img ... OK (3539077 b)
+Waiting for remote to respond.
+Received keep-alive request (11).
+Remote finished. Closing connection.
+Reboot your device now.
+</code></pre><p>此时只要重启路由器，就完成整个过程 连接上去，根据向导的提示，重新进行网络设置吧</p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/%E7%BD%91%E4%BB%B6-r6400-%E5%8F%98%E7%A0%96/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/protobuf-%E7%BC%96%E7%A0%81/">protobuf 编码</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <h1 id="引言">引言</h1>
+<p>假设有如下的消息定义</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Person</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> age <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> height <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> weight <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>有如下数据:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> { 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;kobe&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">198</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">120</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>序列化后得到的数据是 <code>0a056272756365102118ac012041</code>，跟 json 字符串相比明显长度变短了</p>
+<p>这背后的原理是什么呢，请往下看</p>
+<h2 id="消息结构">消息结构</h2>
+<p>protobuf 把数据分为了以下几类：</p>
+<p>表格1:</p>
+<table>
+  <thead>
+      <tr>
+          <th>&mdash;</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<p>类型0 的是可变长度的数字类型，在数据中有大量小数字的情况下可以达到极高的压缩效率</p>
+<p>类型1 和 类型5 分别是 64 位和 32 位的数字</p>
+<p>类型2 的是靠长度值 (LEN) 来确定数据长度的类型</p>
+<h2 id="编码规则">编码规则</h2>
+<p>接下来逐一看看各种类型是如何编码的</p>
+<h3 id="1-数字类型">1 数字类型</h3>
+<p>先看看最基本的类型</p>
+<h4 id="11-可变长度的数字类型">1.1 可变长度的数字类型</h4>
+<p>可变长度的数字类型就是 类型0，包括了 32位整数、64位整数和布尔型、枚举型</p>
+<p>可变长度的好处就是在数字较小的时候，编码占用的数据也小</p>
+<p>用一个例子来说明</p>
+<p>有结构如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgInt</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> field1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>数据如下</p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/protobuf-%E7%BC%96%E7%A0%81/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/%E9%80%9A%E8%BF%87-docker-%E8%BF%90%E8%A1%8C-mysql/">通过 docker 运行 mysql</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>本文介绍通过 docker 来运行 mysql 的方法</p>
+<p>目的是仅用于<strong>开发</strong>，生产环境的话题不在此文的范围内</p>
+<h2 id="运行-mysql">运行 mysql</h2>
+<p>运行 mysql 分两步</p>
+<p>首先，创建一个持久卷</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker volume create mysql-data
+</span></span></code></pre></div><p>然后，启动 mysql 实例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--name mysql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--init <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--restart<span style="color:#f92672">=</span>always <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-v mysql-data:/var/lib/mysql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e MYSQL_ROOT_PASSWORD<span style="color:#f92672">=</span><span style="color:#ae81ff">123456</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-p 3306:3306 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-d mysql:8
+</span></span></code></pre></div><p>这样就可以通过账号 root，密码 123456 来连接上 mysql 了</p>
+<h2 id="作为-mysql-客户端">作为 mysql 客户端</h2>
+<p>运行 MySQL 之后，需要验证一下是否成功</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run -it --rm mysql:8 mysql -h192.168.1.2 -uroot -p123456
+</span></span></code></pre></div><p>如果只用于本机开发，不考虑其他方面，往下都内容都不用看了</p>
+<h2 id="给-mysql-设置其他用户">给 mysql 设置其他用户</h2>
+<p>如果不想用 root 用户，也可以另外设置新的用户</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--name mysql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--init --restart<span style="color:#f92672">=</span>always <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-v mysql-data:/var/lib/mysql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e MYSQL_ROOT_PASSWORD<span style="color:#f92672">=</span><span style="color:#ae81ff">123456</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e MYSQL_USER<span style="color:#f92672">=</span>someuser <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e MYSQL_PASSWORD<span style="color:#f92672">=</span><span style="color:#ae81ff">123456</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-p 3306:3306 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-d mysql:8
+</span></span></code></pre></div><p>要点就在于 MYSQL_USER 和 MYSQL_PASSWORD 两个环境变量</p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/%E9%80%9A%E8%BF%87-docker-%E8%BF%90%E8%A1%8C-mysql/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/%E8%AE%A9-pinus-%E8%BF%90%E8%A1%8C%E5%9C%A8-k8s-%E4%B8%AD/">让 pinus 运行在 k8s 中</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>pinus 在 k8s 中运行很简单 只要让 master 可以被其他进程发现就行 具体做法是通过 k8s service 作为 master 的地址 然后修改 <code>master.json</code> 和 <code>servers.json</code> 即可。</p>
+<p>详细说明待补充，现在懒得写&hellip;</p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/%E8%AE%A9-pinus-%E8%BF%90%E8%A1%8C%E5%9C%A8-k8s-%E4%B8%AD/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/%E9%87%87%E7%94%A8-kind-%E5%AE%89%E8%A3%85%E6%9C%AC%E5%9C%B0-k8s-%E8%BF%9B%E8%A1%8C%E5%BC%80%E5%8F%91/">采用 kind 安装本地 k8s 进行开发</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>使用 kind 进行 k8s 本地开发</p>
+<p>开发常用 镜像仓库 ingress</p>
+<p>参考 kind 官网，把配置和操作步骤记录如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim create-cluster.sh
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>set -o errexit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create registry container unless it already exists</span>
+</span></span><span style="display:flex;"><span>reg_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;kind-registry&#39;</span>
+</span></span><span style="display:flex;"><span>reg_port<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;5000&#39;</span>
+</span></span><span style="display:flex;"><span>running<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">$(</span>docker inspect -f <span style="color:#e6db74">&#39;{{.State.Running}}&#39;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>reg_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> 2&gt;/dev/null <span style="color:#f92672">||</span> true<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>running<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> !<span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;true&#39;</span> <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
+</span></span><span style="display:flex;"><span>  docker run <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -d --restart<span style="color:#f92672">=</span>always -p <span style="color:#e6db74">&#34;127.0.0.1:</span><span style="color:#e6db74">${</span>reg_port<span style="color:#e6db74">}</span><span style="color:#e6db74">:5000&#34;</span> --name <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>reg_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    registry:2
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># create a cluster with the local registry enabled in containerd</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 增加 ingress nginx 相关配置</span>
+</span></span><span style="display:flex;"><span>cat <span style="color:#e6db74">&lt;&lt;EOF | kind create cluster --config=-
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">kind: Cluster
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">apiVersion: kind.x-k8s.io/v1alpha4
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">containerdConfigPatches:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- |-
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  [plugins.&#34;io.containerd.grpc.v1.cri&#34;.registry.mirrors.&#34;localhost:${reg_port}&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    endpoint = [&#34;http://${reg_name}:${reg_port}&#34;]
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">nodes:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">- role: control-plane
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  kubeadmConfigPatches:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  - |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    kind: InitConfiguration
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    nodeRegistration:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      kubeletExtraArgs:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        node-labels: &#34;ingress-ready=true&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  extraPortMappings:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  - containerPort: 80
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    hostPort: 80
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    protocol: TCP
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  - containerPort: 443
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    hostPort: 443
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    protocol: TCP
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  - containerPort: 3100
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    hostPort: 3100
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    protocol: TCP
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  - containerPort: 3200
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    hostPort: 3200
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    protocol: UDP
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># connect the registry to the cluster network</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># (the network may already be connected)</span>
+</span></span><span style="display:flex;"><span>docker network connect <span style="color:#e6db74">&#34;kind&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>reg_name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">||</span> true
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Document the local registry</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/kubernetes/enhancements/tree/master/keps/sig-cluster-lifecycle/generic/1755-communicating-a-local-registry</span>
+</span></span><span style="display:flex;"><span>cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">apiVersion: v1
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">kind: ConfigMap
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">metadata:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  name: local-registry-hosting
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  namespace: kube-public
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">data:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  localRegistryHosting.v1: |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    host: &#34;localhost:${reg_port}&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    help: &#34;https://kind.sigs.k8s.io/docs/user/local-registry/&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span></code></pre></div>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/%E9%87%87%E7%94%A8-kind-%E5%AE%89%E8%A3%85%E6%9C%AC%E5%9C%B0-k8s-%E8%BF%9B%E8%A1%8C%E5%BC%80%E5%8F%91/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/%E5%B0%86-js-%E5%AF%B9%E8%B1%A1%E8%AE%BE%E7%BD%AE%E4%B8%BA%E5%8F%AA%E8%AF%BB/">将 js 对象设置为只读</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>在日常开发中，经常遇到一种情况，就是读配置</p>
+<p>然而有时可能不小心会在业务逻辑中把配置给改了，导致之后的读取出现异常</p>
+<h2 id="使用-proxy">使用 Proxy</h2>
+<p>要避免这类问题，使用 js 的 Proxy 将配置设置为只读是一个很好的办法</p>
+<p>话不多说，上代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handler</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">key</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;object&#39;</span> <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>        ) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Proxy(<span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">key</span>], <span style="color:#a6e22e">handler</span>);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Reflect</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">key</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">set</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">value</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">defineProperty</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">desc</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">deleteProperty</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">key</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 原始配置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">configData</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;aaa&#39;</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;bbb&#39;</span> };
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 设置为只读的配置
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cnf</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy(<span style="color:#a6e22e">configData</span>, <span style="color:#a6e22e">handler</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 尝试修改 cnf 对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">cnf</span>.<span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;ccc&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">cnf</span>); <span style="color:#75715e">// { a: &#39;aaa&#39;, b: &#39;bbb&#39; }
+</span></span></span></code></pre></div><p>使用这个定制 handler 后，怎么改 cnf 的值，它都不会变了</p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/%E5%B0%86-js-%E5%AF%B9%E8%B1%A1%E8%AE%BE%E7%BD%AE%E4%B8%BA%E5%8F%AA%E8%AF%BB/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h2 class="post-title">
+          <a href="http://localhost:1313/posts/hello-world/">docker 的 restart 策略</a>
+        </h2>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>docker 的 restart 策略有3种</p>
+<ul>
+<li>on-failure</li>
+<li>unless-stopped</li>
+<li>always</li>
+</ul>
+<p>看文字描述总是不够清晰</p>
+<p>我做了测试，列出以下表格，明确他们之间的区别</p>
+<table>
+  <thead>
+      <tr>
+          <th>&mdash;</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<p>可能比较需要关注的是 docker 或机器在重启后，容器会不会重启</p>
+<p>一般情况下设置 restart 为 unless-stopped 即可。</p>
+          
+        </div>
+
+        
+           <div>
+            <a class="read-more button inline" href="/posts/hello-world/">[]</a>
+          </div>
+        
+      </article>
+    
+
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+      <a href="/posts/" class="button inline prev">
+        &lt; [<span class="button__text">Newer posts</span>]
+      </a>
+    
+    
+    
+  </div>
+</div>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>Uncategorized :: Bruce2077</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="http://localhost:1313/categories/uncategorized/" />
+
+
+
+
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/buttons.min.86f6b4c106b6c6eb690ae5203d36b442c1f66f718ff4e8164fa86cf6c61ad641.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/code.min.d529ea4b2fb8d34328d7d31afc5466d5f7bc2f0bc9abdd98b69385335d7baee4.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/fonts.min.5bb7ed13e1d00d8ff39ea84af26737007eb5051b157b86fc24487c94f3dc8bbe.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/footer.min.eb8dfc2c6a7eafa36cd3ba92d63e69e849e2200e0002a228d137f236b09ecd75.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/gist.min.a751e8b0abe1ba8bc53ced52a38b19d8950fe78ca29454ea8c2595cf26aad5c0.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/header.min.75c7eb0e2872d95ff48109c6647d0223a38db52e2561dd87966eb5fc7c6bdac6.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/main.min.36833afd348409fc6c3d09d0897c5833d9d5bf1ff31f5e60ea3ee42ce2b1268c.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/menu.min.3c17467ebeb3d38663dce68f71f519901124fa5cbb4519b2fb0667a21e9aca39.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/pagination.min.bbb986dbce00a5ce5aca0504b7925fc1c581992a4bf57f163e5d69cc1db7d836.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/post.min.e6dddd258e64c83e05cec0cd49c05216742d42fc8ecbfbe6b67083412b609bd3.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/syntax.min.a0773cce9310cb6d8ed23e50f005448facf29a53001b57e038828daa466b25c0.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/terminal.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css">
+
+  
+  <link rel="stylesheet" href="http://localhost:1313/css/terms.min.b81791663c3790e738e571cdbf802312390d30e4b1d8dc9d814a5b5454d0ac11.css">
+
+
+
+
+
+
+
+<link rel="shortcut icon" href="http://localhost:1313/favicon.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Uncategorized">
+<meta property="og:description" content="" />
+<meta property="og:url" content="http://localhost:1313/categories/uncategorized/" />
+<meta property="og:site_name" content="Bruce2077" />
+
+  <meta property="og:image" content="http://localhost:1313/og-image.png">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+
+
+
+  <link href="/categories/uncategorized/index.xml" rel="alternate" type="application/rss+xml" title="Bruce2077" />
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+<div class="container">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="http://localhost:1313/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+  <h1>Posts for: #Uncategorized</h1>
+  
+  <div class="posts">
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/microsoft-orleans-%E4%BD%BF%E7%94%A8-mysql-%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE/">Microsoft Orleans 使用 MySQL 持久化数据</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2024-10-06</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>上一篇<a href="https://www.bruce2077.xyz/2024/07/23/magiconion-%e7%bb%93%e5%90%88-orleans/">文章</a>介绍了 Microsoft Orleans 这个框架，这篇继续完善，介绍如何将数据保存到MySQL中。</p>
+<h1 id="首先添加依赖">首先，添加依赖</h1>
+<p>为 Silo 项目添加依赖</p>
+<ul>
+<li><code>Microsoft.Orleans.Persistence.AdoNet</code> 8.2.0</li>
+<li><code>MySql.Data</code> 8.0.33</li>
+</ul>
+<p>添加依赖后，<code>Silo/Silo.csproj</code> 的内容变成：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Project</span> <span style="color:#a6e22e">Sdk=</span><span style="color:#e6db74">&#34;Microsoft.NET.Sdk&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;PropertyGroup&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;OutputType&gt;</span>Exe<span style="color:#f92672">&lt;/OutputType&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;TargetFramework&gt;</span>net8.0<span style="color:#f92672">&lt;/TargetFramework&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ImplicitUsings&gt;</span>enable<span style="color:#f92672">&lt;/ImplicitUsings&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Nullable&gt;</span>enable<span style="color:#f92672">&lt;/Nullable&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/PropertyGroup&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;ItemGroup&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;MySql.Data&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;8.0.33&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ProjectReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;../Grains/Grains.csproj&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Microsoft.Orleans.Persistence.AdoNet&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;8.2.0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Microsoft.Orleans.Server&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;8.2.0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Microsoft.Extensions.Logging.Console&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;8.0.0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Microsoft.Extensions.Hosting&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;8.0.0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/ItemGroup&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Project&gt;</span>
+</span></span></code></pre></div><p>然后，为 Grains 项目添加相同的依赖</p>
+<ul>
+<li><code>Microsoft.Orleans.Persistence.AdoNet</code> 8.2.0</li>
+<li><code>MySql.Data</code> 8.0.33</li>
+</ul>
+<p>添加依赖后，<code>Grains/Grains.csproj</code> 的内容变成：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Project</span> <span style="color:#a6e22e">Sdk=</span><span style="color:#e6db74">&#34;Microsoft.NET.Sdk&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;PropertyGroup&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;TargetFramework&gt;</span>net8.0<span style="color:#f92672">&lt;/TargetFramework&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ImplicitUsings&gt;</span>enable<span style="color:#f92672">&lt;/ImplicitUsings&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Nullable&gt;</span>enable<span style="color:#f92672">&lt;/Nullable&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/PropertyGroup&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;ItemGroup&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ProjectReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;../GrainInterfaces/GrainInterfaces.csproj&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Microsoft.Orleans.Persistence.AdoNet&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;8.2.0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Microsoft.Orleans.Sdk&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;8.2.0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;Microsoft.Extensions.Logging.Abstractions&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;8.0.1&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;MySql.Data&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;8.0.33&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/ItemGroup&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Project&gt;</span>
+</span></span></code></pre></div><h1 id="创建数据库">创建数据库</h1>
+<p>执行以下命令，启动一个MySQL实例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>docker run --name orleans-sample -d -e MYSQL_ROOT_PASSWORD<span style="color:#f92672">=</span><span style="color:#ae81ff">123456</span> -p 3306:3306 mysql:8.0
+</span></span></code></pre></div><p>然后创建一个名为 <code>orleanssample</code> 的库</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/microsoft-orleans-%E4%BD%BF%E7%94%A8-mysql-%E6%8C%81%E4%B9%85%E5%8C%96%E6%95%B0%E6%8D%AE/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/magiconion-%E7%BB%93%E5%90%88-orleans/">MagicOnion 结合 Orleans</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2024-07-23</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>书接上回，上一篇文章介绍了怎么利用 MagicOnion 搭建实时通信程序，这一篇将扩展服务端，结合 Orleans 创建一个分布式的系统，突破单台机器的上限，可服务海量用户。</p>
+<p>Orleans 项目分为几个部分：<code>Grain Interface</code> / <code>Grain</code> / <code>Silo</code> / <code>Client</code></p>
+<ul>
+<li><code>Grain Interface</code> : 定义接口，用于 Silo 和 Client 之间共享代码。</li>
+<li><code>Grain</code> : Interface 的具体实现</li>
+<li><code>Silo</code> : 服务端</li>
+<li><code>Client</code> : 客户端</li>
+</ul>
+<h1 id="创建项目">创建项目</h1>
+<p>执行以下命令创建项目</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>cd magiconion-sample-server
+</span></span><span style="display:flex;"><span>dotnet new classlib -n GrainInterfaces --framework net8.0
+</span></span><span style="display:flex;"><span>dotnet new classlib -n Grains --framework net8.0
+</span></span><span style="display:flex;"><span>dotnet new console -n Silo --framework net8.0
+</span></span><span style="display:flex;"><span>dotnet sln magiconion-sample-server.sln add GrainInterfaces/GrainInterfaces.csproj
+</span></span><span style="display:flex;"><span>dotnet sln magiconion-sample-server.sln add Grains/Grains.csproj
+</span></span><span style="display:flex;"><span>dotnet sln magiconion-sample-server.sln add Silo/Silo.csproj
+</span></span></code></pre></div><p>这里为什么没有创建 Client，因为 MagicOnion 的 Server 就作为 Orleans 的 Client</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/magiconion-%E7%BB%93%E5%90%88-orleans/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/c-%E4%BD%BF%E7%94%A8-magiconion-messagepack-yetanotherhttphandler-%E8%BF%9B%E8%A1%8C%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1-unity-dotnet-%E5%8F%8C%E7%AB%AF%E9%A1%B9%E7%9B%AE/">C# 使用 MagicOnion + MessagePack + YetAnotherHttpHandler 进行实时通信 ( Unity + dotnet 双端项目)</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2024-07-17</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>本文用机器翻译 <a href="https://zenn.dev/toutou/articles/7918da3d1a9e1d#shared-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E7%94%A8%E6%84%8F">MagicOnion + MessagePack + YetAnotherHttpHandler でリアルタイム通信を行う</a>实际操作中某些步骤遇到问题，因此本文有所修正； 以及机器翻译不顺畅的地方，做了一些修改； 另外补充一些细节，避免读者实操遇到困难。</p>
+<p>以下是正文，文中的“我”是原作者</p>
+<h1 id="概述">概述</h1>
+<p>我在2024年使用最新版本的<code>MagicOnion 6.1.4</code> + <code>MessagePack 2.5.140</code> + <code>YetAnotherHttpHandler 1.4.1</code>编写了构建实时通信环境的过程。此外，Unity客户端甚至可以构建IL2CPP，而实时服务器则可以作为本地服务器启动。</p>
+<p>促使我写这篇文章的是 Cysharp 发布的YetAnotherHttpHandler ，它可以与 grpc-dotnet 一起使用。直到最近，在 Unity 中使用 gRPC 客户端的唯一方法是在维护模式下使用 C-Core gRPC 库，而 AnotherHttpHandler 解决了这个问题。</p>
+<p>本文的目标是创建以下工程：<a href="https://x.com/__tou__tou/status/1743201497654173782">https://x.com/__tou__tou/status/1743201497654173782</a>此外，本文不涉及在服务器上实施 TLS 或将其部署到云服务。 （我觉得如果有需求的话我会写续集！）</p>
+<p>后记：本文原本是一篇介绍用MagicOnion 5.1.8和YetAnotherHttpHandler 0.1.0搭建环境时遇到的绊脚石的文章。随着MagicOnion 6.0.1和YetAnotherHttpHandler 1.0.0的发布，更新了README，使环境搭建更加容易。因此，即使没有本文，阅读<a href="https://github.com/Cysharp/MagicOnion">MagicOnion README</a>、<a href="https://github.com/Cysharp/MagicOnion/tree/main/samples/ChatApp">官方示例代码</a>和<a href="https://github.com/Cysharp/YetAnotherHttpHandler">YetAnotherHttpHandler README</a>可能就足够了。</p>
+<h1 id="环境">环境</h1>
+<ul>
+<li><strong>.NET 8</strong> 自.NET 7以来，Linux上的性能和gRPC性能似乎有所提高，因此我将使用.NET8的LTS版本。</li>
+<li><strong>Unity2022 LTS</strong> 任何较新的版本应该没问题</li>
+<li><strong>MagicOnion 6.0</strong> 一个可以用作实时服务器的框架</li>
+<li><strong>MessagePack-CSharp</strong> C# 的快速序列化器</li>
+<li><strong>YetAnotherHttpHandler</strong> 可与 Unity 一起使用的 gRPC、HTTP/2 客户端；与 grpc-dotnet 兼容；内部实现是 Rust</li>
+</ul>
+<h1 id="示例的-git-存储库">示例的 Git 存储库</h1>
+<p>下面是本文介绍的示例存储库。如果文章中的解释不够充分，请参考以下项目</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/c-%E4%BD%BF%E7%94%A8-magiconion-messagepack-yetanotherhttphandler-%E8%BF%9B%E8%A1%8C%E5%AE%9E%E6%97%B6%E9%80%9A%E4%BF%A1-unity-dotnet-%E5%8F%8C%E7%AB%AF%E9%A1%B9%E7%9B%AE/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/%E8%AF%A6%E8%A7%A3-sign-in-with-apple/">详解 Sign in with Apple</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2023-04-03</time><span class="post-author">bruce</span></div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="http://localhost:1313/tags/apple/">apple</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/oauth2.0/">Oauth2.0</a>&nbsp;
+            
+            #<a href="http://localhost:1313/tags/openid-connect/">OpenID Connect</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <h1 id="概述">概述</h1>
+<p>我在实现 Sign in with Apple 时查看了很多文档，越看疑问越多</p>
+<ul>
+<li>为什么苹果设备上实现的流程和 WEB 端如此不同</li>
+<li>服务端验证时为什么除了 id token，还有一个 auth code，到底是干嘛用的</li>
+<li>什么是 nonce ，如何验证 nonce</li>
+<li>为什么要获取 refresh token 和 access token，我似乎用不到它们</li>
+</ul>
+<p>直到我知道了 Apple ID 背后的原理，这些疑团就逐步解开了，</p>
+<p>简单的说：<em><strong>Sign in with Apple 是基于 OpenID Connect 协议的，简称 OIDC 协议，弄懂了 OIDC 就弄懂了 Sign in with Apple</strong></em></p>
+<p>接下来就先弄清楚：什么是 OIDC 协议</p>
+<h1 id="原理部分">原理部分</h1>
+<h2 id="openid-connect-协议">OpenID Connect 协议</h2>
+<p>OIDC 协议是基于 Oauth2.0 协议的，额外提供了身份认证的功能。</p>
+<p>所以要弄清楚 OIDC 协议，又要先了解 Oauth2.0 协议（套娃了属于是）。</p>
+<p>Oauth2.0 协议提供了“授权”的功能，给第三方开发者一个<code>访问令牌</code>，在有限的范围内，访问用户的数据，给用户提供服务又不过度索取用户信息</p>
+<p>举例：</p>
+<p>你开发了一个照片编辑网站，可以美化用户的照片，而照片源数据在用户的QQ相册里，</p>
+<p>这时 QQ相册提供了授权功能，你就可以接入这个系统，获取用户的授权，给用户提供照片美化服务。</p>
+<p>这时候有人可能就问了，为什么搞这么麻烦，让用户把账号密码给我不就好了吗？</p>
+<p>没错，这样是很方便，但是这种方式极度不安全</p>
+<p>如果你是用户，你敢把账号密码交给别人吗，APP开发者的节操是不可靠的，网络的角落里还有无数黑客在盯着这些宝贵的数据。</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/%E8%AF%A6%E8%A7%A3-sign-in-with-apple/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/%E4%BD%BF%E7%94%A8-pinus-http-plugin/">使用 pinus-http-plugin</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <h1 id="引言">引言</h1>
+<p>pinus-http-plugin 是为了让 pinus 进程可以处理 http 协议而做的一个插件</p>
+<p>然而文档较少，具体使用步骤如下</p>
+<h1 id="创建新项目">创建新项目</h1>
+<p>通过以下命令来初始化项目</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 创建目录并进入目录</span>
+</span></span><span style="display:flex;"><span>mkdir demo
+</span></span><span style="display:flex;"><span>cd demo
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 创建 pinus 项目</span>
+</span></span><span style="display:flex;"><span>pinus init
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 安装依赖</span>
+</span></span><span style="display:flex;"><span>cd game-server
+</span></span><span style="display:flex;"><span>yarn install
+</span></span></code></pre></div><h1 id="安装-pinus-http-plugin-插件">安装 pinus-http-plugin 插件</h1>
+<p>在 game-server 目录下执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># game-server/</span>
+</span></span><span style="display:flex;"><span>yarn add pinus-http-plugin
+</span></span></code></pre></div><h1 id="创建-httpjson-配置文件">创建 http.json 配置文件</h1>
+<p>创建配置文件 game-server/config/http.json</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;development&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;gamehttp&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;host&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#ae81ff">3001</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="修改-serversjson">修改 servers.json</h1>
+<p>修改配置文件 game-server/config/servers.json 加入以下配置</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;gamehttp&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>    { <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;gamehttp&#34;</span>, <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#ae81ff">3002</span>, <span style="color:#f92672">&#34;host&#34;</span>: <span style="color:#e6db74">&#34;127.0.0.1&#34;</span> }
+</span></span><span style="display:flex;"><span>]
+</span></span></code></pre></div><h1 id="修改-appts">修改 app.ts</h1>
+<p>加入以下的代码</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/%E4%BD%BF%E7%94%A8-pinus-http-plugin/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/%E5%A4%9A%E5%8F%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA-k8s-%E9%9B%86%E7%BE%A4/">多台虚拟机搭建 k8s 集群</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>要上手体验 k8s，除了 minikube，还可以用虚拟机自己搭建</p>
+<p>此文记录 debian 9 搭建 k8s 集群的过程，使用 kubeadm</p>
+<p>使用这套搭建方法需要有代理，kubeadm 安装集群时需要连<strong>外网</strong></p>
+<h2 id="创建-debian-9-虚拟机">创建 debian 9 虚拟机</h2>
+<p>为了方便创建多个虚拟机以及设置，采用 vagrant 进行安装</p>
+<p>首先创建目录</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p debian-vms
+</span></span></code></pre></div><p>然后进入目录创建 Vagrantfile 配置文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vim Vagrantfile
+</span></span></code></pre></div><p>内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ruby" data-lang="ruby"><span style="display:flex;"><span><span style="color:#75715e"># 此处定义 3 台虚拟机，ip 依次为 30 31 32</span>
+</span></span><span style="display:flex;"><span>nodes <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;dev&#39;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">30</span><span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;2&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ubuntu/xenial64&#34;</span>
+</span></span><span style="display:flex;"><span>    config<span style="color:#f92672">.</span>disksize<span style="color:#f92672">.</span>size <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;40GB&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    group_master <span style="color:#f92672">=</span> Array<span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>    group_vagrant <span style="color:#f92672">=</span> Array<span style="color:#f92672">.</span>new
+</span></span><span style="display:flex;"><span>    nodes<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>prefix, (count, ip_start)<span style="color:#f92672">|</span> 
+</span></span><span style="display:flex;"><span>        count<span style="color:#f92672">.</span>times <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>i<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>            hostname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;%s-%02d&#34;</span> <span style="color:#f92672">%</span> <span style="color:#f92672">[</span>prefix, (ip_start <span style="color:#f92672">+</span> i)<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> group_master<span style="color:#f92672">.</span>length <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>                group_master<span style="color:#f92672">.</span>push(hostname)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>            group_vagrant<span style="color:#f92672">.</span>push(hostname)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provider <span style="color:#e6db74">&#34;virtualbox&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>vb<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>                vb<span style="color:#f92672">.</span>memory <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;2048&#34;</span>
+</span></span><span style="display:flex;"><span>                vb<span style="color:#f92672">.</span>cpus <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>                vb<span style="color:#f92672">.</span>customize <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;modifyvm&#34;</span>, <span style="color:#e6db74">:id</span>, <span style="color:#e6db74">&#34;--audio&#34;</span>, <span style="color:#e6db74">&#34;none&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span>hostname<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>box<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>                box<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>hostname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">#{</span>hostname<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span>    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">:ansible</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>ansible<span style="color:#f92672">|</span>
+</span></span><span style="display:flex;"><span>        ansible<span style="color:#f92672">.</span>playbook <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;bootstrap.yml&#34;</span>
+</span></span><span style="display:flex;"><span>        ansible<span style="color:#f92672">.</span>tags <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;vagrant&#34;</span>
+</span></span><span style="display:flex;"><span>        ansible<span style="color:#f92672">.</span>compatibility_mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;2.0&#34;</span>
+</span></span><span style="display:flex;"><span>        ansible<span style="color:#f92672">.</span>groups <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;vagrant&#34;</span> <span style="color:#f92672">=&gt;</span> group_vagrant,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#34;all_groups:children&#34;</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;vagrant&#34;</span><span style="color:#f92672">]</span>,
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">end</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">end</span>
+</span></span></code></pre></div><p>创建好 Vagrantfile 后，启动虚拟机，由于设定了3台，需要打开3个终端页面，分别输入</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/%E5%A4%9A%E5%8F%B0%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA-k8s-%E9%9B%86%E7%BE%A4/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/%E9%80%9A%E8%BF%87-docker-%E8%BF%90%E8%A1%8C-redis/">通过 docker 运行 redis</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>此文介绍如何通过 docker 来运行 redis</p>
+<p>目的是仅用于<strong>开发</strong>，生产环境的话题不在此文的范围内</p>
+<h2 id="本地运行-redis">本地运行 redis</h2>
+<p>很简单一行命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run --name redis-6379 -p 6379:6379 --init --restart<span style="color:#f92672">=</span>always -d redis:6
+</span></span></code></pre></div><p>这样， redis 实例就启动了</p>
+<p>如果仅给本地开发访问，这样的设置就足够了</p>
+<h2 id="给-redis-设置持久化存储">给 redis 设置持久化存储</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># 创建持久卷</span>
+</span></span><span style="display:flex;"><span>docker volume create redis-data-6379
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 启动 redis</span>
+</span></span><span style="display:flex;"><span>docker run --name redis-6379 -p 6379:6379 --init --restart<span style="color:#f92672">=</span>always -v redis-data-6379:/data -d redis:6
+</span></span></code></pre></div><p>要点就在于 <code>-v redis-data-6379:/data</code> 这个选项</p>
+<h2 id="给-redis-设定密码">给 redis 设定密码</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--name redis-6379 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-p 6379:6379 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--init <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--restart<span style="color:#f92672">=</span>always <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-d redis:6 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>redis-server --requirepass <span style="color:#e6db74">&#34;123321&#34;</span>
+</span></span></code></pre></div><p>相比于不设置密码的启动方式，就是多了最后这一段 <code>redis-server --requirepass &quot;123321&quot;</code></p>
+<h2 id="将-redis-放在云服务器中提供给开发使用">将 redis 放在云服务器中提供给开发使用</h2>
+<p>就是综合以上3个设置</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/%E9%80%9A%E8%BF%87-docker-%E8%BF%90%E8%A1%8C-redis/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/%E7%BD%91%E4%BB%B6-r6400-%E5%8F%98%E7%A0%96/">网件 r6400 变砖</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>本篇记录一次r6400变砖后的救机过程 之前刷机玩，刷错固件，导致路由变砖 一度以为没救了 实际是因为搜索的质量不高，没有按照正确的做法来操作 只要按照 <a href="https://github.com/jclehner/nmrpflash">nmrpflash</a> 所教的方法来操作，救砖是很轻松的，而且不需要别的工具，只要一根网线把路由器跟电脑连起来就可以</p>
+<p>准备的软件：</p>
+<ol>
+<li>windows 系统（其实 Mac 和 Linux 都是可以的，由于我是在 win10 上操作，所以这里列出的是 windows）</li>
+<li>nmrpflash.exe <a href="https://github.com/jclehner/nmrpflash/releases/tag/v0.9.16">下载</a></li>
+<li>Npcap <a href="https://npcap.com/dist/npcap-1.60.exe">下载</a></li>
+<li>R6400 的固件 <a href="https://www.netgear.com/support/product/r6400.aspx#Firmware%20Version%201.0.1.76">下载</a></li>
+</ol>
+<p>操作步骤</p>
+<ol>
+<li>安装 Npcap</li>
+<li>用网线连接路由器和你的电脑，路由器的部分连接在1号lan口</li>
+<li>把 nmrpflash.exe 和固件文件放到 D 盘根目录下（其实哪个盘都可以，我这里按自己的操作过程来说明）</li>
+<li>以管理员权限运行 cmd，输入命令 <code>D:</code> 进入D盘</li>
+<li>在 cmd 中输入命令 <code>nmrpflash.exe -L</code>，会列出当前路由器的列表 类似这样的结果 ```sh
+eth10      0.0.0.0      ca:fe:ba:be:45:67</li>
+</ol>
+<pre tabindex="0"><code>6. 把路由器关机
+7. 输入命令 `nmrpflash.exe -i eth10 -f &lt;固件文件名&gt;`会看到 `Waiting for Ethernet connection.` 这个提示
+8. 把路由器开机 等待运行结束，当看到最后有这么一句 `Reboot your device now`就说明成功了 ```sh
+Advertising NMRP server on eth2 ... /
+Received configuration request from fe:ed:1b:ad:f0:0d
+Sending configuration: 10.164.183.252/24
+Received upload request: filename &#39;firmware&#39;.
+Uploading EX2700-V1.0.1.8.img ... OK (3539077 b)
+Waiting for remote to respond.
+Received keep-alive request (11).
+Remote finished. Closing connection.
+Reboot your device now.
+</code></pre><p>此时只要重启路由器，就完成整个过程 连接上去，根据向导的提示，重新进行网络设置吧</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/%E7%BD%91%E4%BB%B6-r6400-%E5%8F%98%E7%A0%96/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/protobuf-%E7%BC%96%E7%A0%81/">protobuf 编码</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <h1 id="引言">引言</h1>
+<p>假设有如下的消息定义</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">Person</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">string</span> name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> age <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> height <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>    <span style="color:#66d9ef">uint32</span> weight <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>有如下数据:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> { 
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;kobe&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">18</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">height</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">198</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">weight</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">120</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>序列化后得到的数据是 <code>0a056272756365102118ac012041</code>，跟 json 字符串相比明显长度变短了</p>
+<p>这背后的原理是什么呢，请往下看</p>
+<h2 id="消息结构">消息结构</h2>
+<p>protobuf 把数据分为了以下几类：</p>
+<p>表格1:</p>
+<table>
+  <thead>
+      <tr>
+          <th>&mdash;</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+      <tr>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+<p>类型0 的是可变长度的数字类型，在数据中有大量小数字的情况下可以达到极高的压缩效率</p>
+<p>类型1 和 类型5 分别是 64 位和 32 位的数字</p>
+<p>类型2 的是靠长度值 (LEN) 来确定数据长度的类型</p>
+<h2 id="编码规则">编码规则</h2>
+<p>接下来逐一看看各种类型是如何编码的</p>
+<h3 id="1-数字类型">1 数字类型</h3>
+<p>先看看最基本的类型</p>
+<h4 id="11-可变长度的数字类型">1.1 可变长度的数字类型</h4>
+<p>可变长度的数字类型就是 类型0，包括了 32位整数、64位整数和布尔型、枚举型</p>
+<p>可变长度的好处就是在数字较小的时候，编码占用的数据也小</p>
+<p>用一个例子来说明</p>
+<p>有结构如下</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-protobuf" data-lang="protobuf"><span style="display:flex;"><span><span style="color:#66d9ef">message</span> <span style="color:#a6e22e">MsgInt</span> {<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>  <span style="color:#66d9ef">int32</span> field1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span>}<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p>数据如下</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/protobuf-%E7%BC%96%E7%A0%81/">[]</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
+          <a href="http://localhost:1313/posts/%E9%80%9A%E8%BF%87-docker-%E8%BF%90%E8%A1%8C-mysql/">通过 docker 运行 mysql</a>
+        </h1>
+        <div class="post-meta"><time class="post-date">2022-11-12</time><span class="post-author">bruce</span></div>
+
+        
+
+        
+
+
+        <div class="post-content">
+          
+            <p>本文介绍通过 docker 来运行 mysql 的方法</p>
+<p>目的是仅用于<strong>开发</strong>，生产环境的话题不在此文的范围内</p>
+<h2 id="运行-mysql">运行 mysql</h2>
+<p>运行 mysql 分两步</p>
+<p>首先，创建一个持久卷</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker volume create mysql-data
+</span></span></code></pre></div><p>然后，启动 mysql 实例</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--name mysql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--init <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--restart<span style="color:#f92672">=</span>always <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-v mysql-data:/var/lib/mysql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e MYSQL_ROOT_PASSWORD<span style="color:#f92672">=</span><span style="color:#ae81ff">123456</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-p 3306:3306 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-d mysql:8
+</span></span></code></pre></div><p>这样就可以通过账号 root，密码 123456 来连接上 mysql 了</p>
+<h2 id="作为-mysql-客户端">作为 mysql 客户端</h2>
+<p>运行 MySQL 之后，需要验证一下是否成功</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run -it --rm mysql:8 mysql -h192.168.1.2 -uroot -p123456
+</span></span></code></pre></div><p>如果只用于本机开发，不考虑其他方面，往下都内容都不用看了</p>
+<h2 id="给-mysql-设置其他用户">给 mysql 设置其他用户</h2>
+<p>如果不想用 root 用户，也可以另外设置新的用户</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>docker run <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--name mysql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>--init --restart<span style="color:#f92672">=</span>always <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-v mysql-data:/var/lib/mysql <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e MYSQL_ROOT_PASSWORD<span style="color:#f92672">=</span><span style="color:#ae81ff">123456</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e MYSQL_USER<span style="color:#f92672">=</span>someuser <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-e MYSQL_PASSWORD<span style="color:#f92672">=</span><span style="color:#ae81ff">123456</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-p 3306:3306 <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>-d mysql:8
+</span></span></code></pre></div><p>要点就在于 MYSQL_USER 和 MYSQL_PASSWORD 两个环境变量</p>
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button inline" href="/posts/%E9%80%9A%E8%BF%87-docker-%E8%BF%90%E8%A1%8C-mysql/">[]</a>
+          </div>
+        
+      </article>
+    
+
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+    
+    
+      <a href="/categories/uncategorized/page/2/" class="button inline next">
+        [<span class="button__text">Older posts</span>] &gt;
+      </a>
+    
+  </div>
+</div>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2025 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

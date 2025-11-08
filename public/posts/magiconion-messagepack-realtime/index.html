@@ -1,0 +1,1094 @@
+<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>C# 使用 MagicOnion &#43; MessagePack &#43; YetAnotherHttpHandler 进行实时通信 | Bruce2077</title>
+    <meta name="description" content="" />
+
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #4a4b4f;
+        background-color: #fbfbfb;
+      }
+
+      .container {
+        max-width: 580px;  
+        margin: 0 auto;
+        padding: 60px 20px;
+      }
+
+      h1 {
+        font-family: 'Source Serif Pro', serif;
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0 0 40px 0;
+        color: #4a4b4f;
+      }
+
+      p {
+        margin: 0 0 20px 0;
+        line-height: 1.7;
+      }
+
+      a {
+        color: #8f6a60;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+
+      a:hover {
+        color: #6b5046;
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .works-title {
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #4a4b4f;
+      }
+
+      .work-item {
+        margin-bottom: 12px;
+        line-height: 1.6;
+      }
+
+      .work-link {
+        display: block;
+        text-decoration: none;
+        color: #4a4b4f;
+      }
+
+      .work-link:hover {
+        opacity: 0.8;
+      }
+
+      .work-title {
+        font-weight: 500;
+      }
+
+      .publication {
+        color: #8f6a60;
+      }
+
+      .year {
+        color: #9d9d9d;
+      }
+
+      .description {
+        color: #9d9d9d;
+        font-style: italic;
+        margin-top: 4px;
+      }
+
+      .contact {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px solid #e5e5e5;
+      }
+
+      .footer-image {
+        margin-top: 30px;
+        text-align: left;
+      }
+
+      .footer-image img {
+        width: 60px;
+        height: auto;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 40px 20px;
+        }
+
+        h1 {
+          font-size: 22px;
+        }
+
+        body {
+          font-size: 15px;
+        }
+      }
+      
+       
+      pre {
+        background-color: #f5f5f5;
+        padding: 16px;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin: 20px 0;
+      }
+      
+      code {
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      
+      pre code {
+        display: block;
+        white-space: pre !important;
+        word-wrap: normal !important;
+        word-break: normal;
+        overflow-x: auto;
+      }
+      
+       
+      p code, li code, h1 code, h2 code, h3 code {
+        background-color: #f5f5f5;
+        padding: 3px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+       
+      .post-content mjx-container[display="true"] {
+        display: block;
+        text-align: center;
+        margin: 1em 0;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box;
+        padding-top: 1em;
+        padding-bottom: 1em;
+        min-height: unset;
+      }
+       
+      .post-content mjx-container[display="true"] mjx-math {
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        overflow-y: visible !important;
+        white-space: pre;
+        box-sizing: border-box;
+        min-height: unset;
+      }
+       
+      .post-content {
+        overflow-x: auto;
+        overflow-y: visible;
+      }
+      
+       
+      .post-content img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+      }
+      
+       
+      .post-content img + em {
+        display: block;
+        text-align: center;
+        font-size: 0.9em;
+        color: #777;
+        margin-top: -1em;
+        margin-bottom: 1.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      
+<style>
+  .post-container {
+    max-width: 580px;  
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .post-header {
+    margin-bottom: 40px;
+  }
+  
+  .post-title {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #4a4b4f;
+  }
+  
+  .post-date {
+    color: #9d9d9d;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+  
+  .post-description {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 17px;
+  }
+  
+  .post-content {
+    line-height: 1.8;
+  }
+  
+  .post-content h2 {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 30px 0 20px 0;
+    color: #4a4b4f;
+  }
+  
+  .post-content p {
+    margin-bottom: 20px;
+  }
+  
+  .post-content img {
+    display: block;
+    width: 80%;
+    max-width: 80%;
+    height: auto;
+    margin: 2rem auto;
+    border-radius: 4px;
+  }
+  
+   
+  .post-content img + em {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    color: #777;
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .post-content em {
+    color: #666;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #8f6a60;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+  
+  .back-link:hover {
+    color: #6b5046;
+  }
+</style>
+
+<div class="post-container">
+  <div class="post-header">
+    <h1 class="post-title">C# 使用 MagicOnion &#43; MessagePack &#43; YetAnotherHttpHandler 进行实时通信</h1>
+    <div class="post-date">July 19, 2024</div>
+  </div>
+  
+  <div class="post-content">
+    <p>本文用机器翻译 <a href="https://zenn.dev/toutou/articles/7918da3d1a9e1d#shared-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E7%94%A8%E6%84%8F">MagicOnion + MessagePack + YetAnotherHttpHandler でリアルタイム通信を行う</a>实际操作中某些步骤遇到问题，因此本文有所修正； 以及机器翻译不顺畅的地方，做了一些修改； 另外补充一些细节，避免读者实操遇到困难。</p>
+<p>以下是正文，文中的“我”是原作者</p>
+<h1 id="概述">概述</h1>
+<p>我在2024年使用最新版本的<code>MagicOnion 6.1.4</code> + <code>MessagePack 2.5.140</code> + <code>YetAnotherHttpHandler 1.4.1</code>编写了构建实时通信环境的过程。此外，Unity客户端甚至可以构建IL2CPP，而实时服务器则可以作为本地服务器启动。</p>
+<p>促使我写这篇文章的是 Cysharp 发布的YetAnotherHttpHandler ，它可以与 grpc-dotnet 一起使用。直到最近，在 Unity 中使用 gRPC 客户端的唯一方法是在维护模式下使用 C-Core gRPC 库，而 AnotherHttpHandler 解决了这个问题。</p>
+<p>本文的目标是创建以下工程：<a href="https://x.com/__tou__tou/status/1743201497654173782">https://x.com/__tou__tou/status/1743201497654173782</a>此外，本文不涉及在服务器上实施 TLS 或将其部署到云服务。 （我觉得如果有需求的话我会写续集！）</p>
+<p>后记：本文原本是一篇介绍用MagicOnion 5.1.8和YetAnotherHttpHandler 0.1.0搭建环境时遇到的绊脚石的文章。随着MagicOnion 6.0.1和YetAnotherHttpHandler 1.0.0的发布，更新了README，使环境搭建更加容易。因此，即使没有本文，阅读<a href="https://github.com/Cysharp/MagicOnion">MagicOnion README</a>、<a href="https://github.com/Cysharp/MagicOnion/tree/main/samples/ChatApp">官方示例代码</a>和<a href="https://github.com/Cysharp/YetAnotherHttpHandler">YetAnotherHttpHandler README</a>可能就足够了。</p>
+<h1 id="环境">环境</h1>
+<ul>
+<li><strong>.NET 8</strong> 自.NET 7以来，Linux上的性能和gRPC性能似乎有所提高，因此我将使用.NET8的LTS版本。</li>
+<li><strong>Unity2022 LTS</strong> 任何较新的版本应该没问题</li>
+<li><strong>MagicOnion 6.0</strong> 一个可以用作实时服务器的框架</li>
+<li><strong>MessagePack-CSharp</strong> C# 的快速序列化器</li>
+<li><strong>YetAnotherHttpHandler</strong> 可与 Unity 一起使用的 gRPC、HTTP/2 客户端；与 grpc-dotnet 兼容；内部实现是 Rust</li>
+</ul>
+<h1 id="示例的-git-存储库">示例的 Git 存储库</h1>
+<p>下面是本文介绍的示例存储库。如果文章中的解释不够充分，请参考以下项目</p>
+<ul>
+<li><a href="https://github.com/bruce48x/MagicOnion-Sample-Server">MagicOnion-Sample-Server</a></li>
+<li><a href="https://github.com/bruce48x/MagicOnion-Sample-Client">MagicOnion-Sample-Client</a></li>
+</ul>
+<h1 id="magiconion服务器">MagicOnion服务器</h1>
+<p>程序大致分为MagicOnion Server版和Unity客户端版。首先，我们来谈谈MagicOnion Server。</p>
+<h2 id="提前准备">提前准备</h2>
+<ul>
+<li>安装.NET SDK8.0
+<ul>
+<li><a href="https://dotnet.microsoft.com/zh-cn/download/dotnet/8.0">下载 .NET 8.0（Linux、macOS、Windows）</a></li>
+</ul>
+</li>
+<li>更新IDE
+<ul>
+<li>您可能需要将 Visual Studio 或 Rider 更新到最新版本才能支持 .NET8</li>
+</ul>
+</li>
+</ul>
+<h2 id="初始文件夹结构">初始文件夹结构</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>magiconion-sample-server
+</span></span><span style="display:flex;"><span>├── .git
+</span></span><span style="display:flex;"><span>├── .gitignore
+</span></span><span style="display:flex;"><span>└── README.md
+</span></span></code></pre></div><h2 id="创建解决方案">创建解决方案</h2>
+<p>创建一个 .NET 解决方案和两个项目，并将这两个项目添加到该解决方案中。 这两个项目之一是 Server 项目，其中包含 MagicOnion Server 实现。第二个是Shared项目，它在Server和Unity客户端之间共享，定义了一组Interface。在Server项目端实现该接口，在Unity客户端使用该接口。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>&gt; cd magiconion-sample-server
+</span></span><span style="display:flex;"><span>&gt; dotnet new sln -n magiconion-sample-server
+</span></span><span style="display:flex;"><span>&gt; dotnet new console -n Server -o Server --framework net8.0
+</span></span><span style="display:flex;"><span>&gt; dotnet sln magiconion-sample-server.sln add Server/Server.csproj
+</span></span><span style="display:flex;"><span>&gt; dotnet new classlib -n Shared -o Shared --framework netstandard2.1
+</span></span><span style="display:flex;"><span>&gt; dotnet sln magiconion-sample-server.sln add Shared/Shared.csproj
+</span></span></code></pre></div><p>此外，服务器项目指定了最新的 .NET 8。自<code>.NET 7</code>以来Linux上的性能和gRPC性能都有所提高，所以我将使用<code>.NET8</code>的LTS版本。</p>
+<p><code>Shared</code>被指定为<code>netstandard2.1</code>框架，因为该项目在服务器和 Unity 客户端之间共享。</p>
+<p>从资源管理器中双击<code>magiconion-sample-server.sln</code>将其打开。</p>
+<p>您应该具有如下所示的目录结构:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>magiconion-sample-server
+</span></span><span style="display:flex;"><span>├── .git
+</span></span><span style="display:flex;"><span>├── .gitignore
+</span></span><span style="display:flex;"><span>├── README.md
+</span></span><span style="display:flex;"><span>├── Server
+</span></span><span style="display:flex;"><span>│   ├── Program.cs
+</span></span><span style="display:flex;"><span>│   └── Server.csproj
+</span></span><span style="display:flex;"><span>├── Shared
+</span></span><span style="display:flex;"><span>│   ├── Class1.cs
+</span></span><span style="display:flex;"><span>│   └── Shared.csproj
+</span></span><span style="display:flex;"><span>└── magiconion-sample-server.sln
+</span></span></code></pre></div><p>另外，Shared工程在服务器端是在.NET8环境中执行的，在Unity客户端是在Unity2022.3.14f1编译环境（最高兼容C#9.0）中执行的，所以必须用C#9.0语法来编写。</p>
+<h2 id="准备-shared-项目">准备 Shared 项目</h2>
+<p>Shared 项目定义一个接口。Shared项目中定义的接口将在 Server 项目中实现，并从 Unity 客户端使用。</p>
+<p>首先修改<code>Shared.csproj</code>为以下内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Project</span> <span style="color:#a6e22e">Sdk=</span><span style="color:#e6db74">&#34;Microsoft.NET.Sdk&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;PropertyGroup&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;TargetFramework&gt;</span>netstandard2.1<span style="color:#f92672">&lt;/TargetFramework&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;LangVersion&gt;</span>9.0<span style="color:#f92672">&lt;/LangVersion&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/PropertyGroup&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;ItemGroup&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;MagicOnion.Abstractions&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;6.0.0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;MessagePack&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;2.5.140&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;MessagePack.Annotations&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;2.5.140&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;MessagePack.UnityShims&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;2.5.140&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/ItemGroup&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Project&gt;</span>
+</span></span></code></pre></div><h2 id="在shared项目中定义接口">在Shared项目中定义接口</h2>
+<p>参考MagicOnion 的<a href="https://github.com/Cysharp/MagicOnion?tab=readme-ov-file#quick-start">README</a>来定义Interface。</p>
+<p>在Shared目录下创建一个目录<code>Interfaces</code>，并在其下添加以下内容。</p>
+<p>IMyFirstService.cs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> Shared.Interfaces
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IMyFirstService</span> : IService&lt;IMyFirstService&gt;
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        UnaryResult&lt;<span style="color:#66d9ef">int</span>&gt; SumAsync(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>IGamingHub.cs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MessagePack;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> UnityEngine;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> Shared.Interfaces
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IGamingHubReceiver</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">void</span> OnJoin(Player player);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">void</span> OnLeave(Player player);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">void</span> OnMove(Player player);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IGamingHub</span> : IStreamingHub&lt;IGamingHub, IGamingHubReceiver&gt;
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ValueTask&lt;Player[]&gt; JoinAsync(<span style="color:#66d9ef">string</span> roomName, <span style="color:#66d9ef">string</span> userName, Vector3 position, Quaternion rotation);
+</span></span><span style="display:flex;"><span>        ValueTask LeaveAsync();
+</span></span><span style="display:flex;"><span>        ValueTask MoveAsync(Vector3 position, Quaternion rotation);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">    [MessagePackObject]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Player</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">        [Key(0)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">        [Key(1)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> Vector3 Position { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">        [Key(2)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> Quaternion Rotation { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="package化">Package化</h2>
+<p>接下来，在共享项目根目录中添加<code>package.json</code>，以便 Unity 将共享项目识别为包。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;com.magiconion-sample-server.shared&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;0.0.1&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;displayName&#34;</span>: <span style="color:#e6db74">&#34;magiconion-sample-server shared&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>删除不需要的Class1.cs后，Shared下的目录结构应该如下所示。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>Shared
+</span></span><span style="display:flex;"><span>├── Interfaces
+</span></span><span style="display:flex;"><span>│   ├── IGamingHub.cs
+</span></span><span style="display:flex;"><span>│   └── IMyFirstService.cs
+</span></span><span style="display:flex;"><span>├── Shared.csproj
+</span></span><span style="display:flex;"><span>└── package.json
+</span></span></code></pre></div><h2 id="准备-server-项目">准备 Server 项目</h2>
+<p>接下来，我们将准备Server项目。 首先，添加 MagicOnion.Server 6.0.0 和Shared项目。 Server.csproj</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;Project</span> <span style="color:#a6e22e">Sdk=</span><span style="color:#e6db74">&#34;Microsoft.NET.Sdk&#34;</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;PropertyGroup&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;OutputType&gt;</span>Exe<span style="color:#f92672">&lt;/OutputType&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;TargetFramework&gt;</span>net8.0<span style="color:#f92672">&lt;/TargetFramework&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ImplicitUsings&gt;</span>enable<span style="color:#f92672">&lt;/ImplicitUsings&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;Nullable&gt;</span>enable<span style="color:#f92672">&lt;/Nullable&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/PropertyGroup&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;ItemGroup&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;PackageReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;MagicOnion.Server&#34;</span> <span style="color:#a6e22e">Version=</span><span style="color:#e6db74">&#34;6.0.0&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;ProjectReference</span> <span style="color:#a6e22e">Include=</span><span style="color:#e6db74">&#34;../Shared/Shared.csproj&#34;</span><span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;/ItemGroup&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/Project&gt;</span>
+</span></span></code></pre></div><h2 id="在server项目中实现接口">在Server项目中实现接口</h2>
+<p>按照MagicOnion的README实施它。 目录结构如下。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-txt" data-lang="txt"><span style="display:flex;"><span>Server
+</span></span><span style="display:flex;"><span>├── Program.cs
+</span></span><span style="display:flex;"><span>├── Server.csproj
+</span></span><span style="display:flex;"><span>├── Services
+</span></span><span style="display:flex;"><span>│   └── MyFirstService.cs
+</span></span><span style="display:flex;"><span>└─── StreamingHub
+</span></span><span style="display:flex;"><span>   └── GamingHub.cs
+</span></span></code></pre></div><p>MyFistService.cs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion.Server;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Shared.Interfaces;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> Server.Services;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// copied from https://github.com/Cysharp/MagicOnion#service-implementation-server-side</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Implements RPC service in the server project.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The implementation class must inherit `ServiceBase&lt;IMyFirstService&gt;` and `IMyFirstService`</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyFirstService</span> : ServiceBase&lt;IMyFirstService&gt;, IMyFirstService
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// `UnaryResult&lt;T&gt;` allows the method to be treated as `async` method.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> UnaryResult&lt;<span style="color:#66d9ef">int</span>&gt; SumAsync(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">int</span> y)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Console.WriteLine(<span style="color:#e6db74">$&#34;Received:{x}, {y}&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> x + y;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>GamingHub.cs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion.Server.Hubs;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Shared.Interfaces;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> UnityEngine;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> Server.StreamingHub;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// copied from https://github.com/Cysharp/MagicOnion#streaminghub</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Server implementation</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// implements : StreamingHubBase&lt;THub, TReceiver&gt;, THub</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GamingHub</span> : StreamingHubBase&lt;IGamingHub, IGamingHubReceiver&gt;, IGamingHub
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// this class is instantiated per connected so fields are cache area of connection.</span>
+</span></span><span style="display:flex;"><span>    IGroup room;
+</span></span><span style="display:flex;"><span>    Player self;
+</span></span><span style="display:flex;"><span>    IInMemoryStorage&lt;Player&gt; storage;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> ValueTask&lt;Player[]&gt; JoinAsync(<span style="color:#66d9ef">string</span> roomName, <span style="color:#66d9ef">string</span> userName, Vector3 position, Quaternion rotation)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        self = <span style="color:#66d9ef">new</span> Player() { Name = userName, Position = position, Rotation = rotation };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Group can bundle many connections and it has inmemory-storage so add any type per group.</span>
+</span></span><span style="display:flex;"><span>        (room, storage) = <span style="color:#66d9ef">await</span> Group.AddAsync(roomName, self);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Typed Server-&gt;Client broadcast.</span>
+</span></span><span style="display:flex;"><span>        Broadcast(room).OnJoin(self);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> storage.AllValues.ToArray();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> ValueTask LeaveAsync()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">await</span> room.RemoveAsync(<span style="color:#66d9ef">this</span>.Context);
+</span></span><span style="display:flex;"><span>        Broadcast(room).OnLeave(self);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> ValueTask MoveAsync(Vector3 position, Quaternion rotation)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        self.Position = position;
+</span></span><span style="display:flex;"><span>        self.Rotation = rotation;
+</span></span><span style="display:flex;"><span>        Console.WriteLine(<span style="color:#e6db74">$&#34;MoveAsync: {self.Name} pos:{position.x} {position.y} {position.z} rot:{rotation.x} {rotation.y} {rotation.z} {rotation.w}&#34;</span>);
+</span></span><span style="display:flex;"><span>        Broadcast(room).OnMove(self);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// You can hook OnConnecting/OnDisconnected by override.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">override</span> ValueTask OnDisconnected()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// on disconnecting, if automatically removed this connection from group.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ValueTask.CompletedTask;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="实现-server-程序的入口点">实现 Server 程序的入口点</h2>
+<p>我将把这些内容写成服务器程序的入口点。</p>
+<p>Program.cs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Net;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Security.Cryptography.X509Certificates;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.AspNetCore.Builder;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.AspNetCore.Hosting;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.AspNetCore.Server.Kestrel.Core;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Microsoft.Extensions.DependencyInjection;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> Server;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> builder = WebApplication.CreateBuilder(args);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        builder.WebHost.UseKestrel(options =&gt;
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            options.ConfigureEndpointDefaults(endpointOptions =&gt;
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                endpointOptions.Protocols = HttpProtocols.Http2;
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// HTTP/1.1エンドポイントの設定</span>
+</span></span><span style="display:flex;"><span>            options.Listen(IPAddress.Parse(<span style="color:#e6db74">&#34;0.0.0.0&#34;</span>), <span style="color:#ae81ff">5000</span>, listenOptions =&gt;
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                listenOptions.Protocols = HttpProtocols.Http1;
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// HTTP/2 ,HTTPS エンドポイントの設定</span>
+</span></span><span style="display:flex;"><span>            options.Listen(IPAddress.Parse(<span style="color:#e6db74">&#34;0.0.0.0&#34;</span>), <span style="color:#ae81ff">5001</span>, listenOptions =&gt;
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// --load-cert=true が指定されていたら証明書を読み込む</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (args.Any(arg =&gt; arg == <span style="color:#e6db74">&#34;--load-cert=true&#34;</span>))
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    Console.WriteLine(<span style="color:#e6db74">&#34;load certificate&#34;</span>);
+</span></span><span style="display:flex;"><span>                    listenOptions.UseHttps(<span style="color:#66d9ef">new</span> X509Certificate2(<span style="color:#e6db74">&#34;certificate/certificate.pfx&#34;</span>,<span style="color:#e6db74">&#34;test&#34;</span>));
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        builder.Services.AddGrpc();
+</span></span><span style="display:flex;"><span>        builder.Services.AddMagicOnion();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">var</span> app = builder.Build();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// テスト用のエンドポイント</span>
+</span></span><span style="display:flex;"><span>        app.MapGet(<span style="color:#e6db74">&#34;/&#34;</span>, () =&gt; <span style="color:#e6db74">&#34;Hello World!&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// MagicOnionのエンドポイント</span>
+</span></span><span style="display:flex;"><span>        app.MapMagicOnionService();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        app.Run();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>我们考虑以下几点：</p>
+<ul>
+<li>准备 HTTP/1.1 端点以进行问题隔离</li>
+<li>设置端点IP0.0.0.0是为了在docker容器上启动Server时更容易从主机访问。
+<ul>
+<li>所以如果你想在宿主机上启动服务器127.0.0.1也是可以的。</li>
+</ul>
+</li>
+<li>有一个选项可以加载证书，但是它不起作用，因为我们此时还没有生成证书。</li>
+</ul>
+<p>最后，将其推送到相应的 GitHub 存储库。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git push origin main
+</span></span></code></pre></div><h1 id="unity客户端">Unity客户端</h1>
+<h2 id="提前准备-1">提前准备</h2>
+<ul>
+<li>安装 C++ 编译器和 Windows SDK（如果需要）
+<ul>
+<li>例如，您可以启动 <code>Visual Studio Installer</code> 并选择 <code>Change</code> -&gt; <code>Desktop Development with C++</code> 进行安装。</li>
+<li>IL2CPP 构建</li>
+</ul>
+</li>
+<li>从 UnityHub 创建合适的 Unity 项目
+<ul>
+<li>我选择了Unity2022.3.14f1 &amp; URP 3D模板。</li>
+</ul>
+</li>
+<li>添加.gitignore、.gitattribute
+<ul>
+<li><a href="https://github.com/tou-tou/magiconion-sample-client/blob/main/.gitignore">magiconion-样本-客户端/.gitignore</a></li>
+<li><a href="https://github.com/tou-tou/magiconion-sample-client/blob/main/.gitattributes">magiconion-样本-客户端/.gitattributes</a></li>
+</ul>
+</li>
+<li>使用以下命令创建本地 git 存储库<code>git init</code></li>
+</ul>
+<h2 id="通过openupm添加所需的unity包">通过openupm添加所需的Unity包</h2>
+<p>在<code>Packages</code> 文件夹下的<code>manifest.json</code>文件添加以下内容<code>scopedRegistries</code>。</p>
+<p>manfest.json</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;scopedRegistries&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;package.openupm.com&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;url&#34;</span>: <span style="color:#e6db74">&#34;https://package.openupm.com&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;scopes&#34;</span>: [
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;com.github-glitchenzo.nugetforunity&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;com.cysharp.magiconion&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;com.neuecc.messagepack&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;com.cysharp.yetanotherhttphandler&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;com.veriorpies.parrelsync&#34;</span>
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  ]<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span></code></pre></div><p><code>dependencies</code>添加以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">...</span>
+</span></span><span style="display:flex;"><span> <span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;com.cysharp.magiconion&#34;</span>: <span style="color:#e6db74">&#34;6.1.4&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;com.neuecc.messagepack&#34;</span>: <span style="color:#e6db74">&#34;2.5.140&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;com.cysharp.yetanotherhttphandler&#34;</span>: <span style="color:#e6db74">&#34;1.4.1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;com.github-glitchenzo.nugetforunity&#34;</span>: <span style="color:#e6db74">&#34;4.1.1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;com.veriorpies.parrelsync&#34;</span>: <span style="color:#e6db74">&#34;1.5.2&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;com.magiconion-sample-server.shared&#34;</span>: <span style="color:#e6db74">&#34;file:../../magiconion-sample-client/magiconion-sample-server/Shared/&#34;</span>,
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">...</span>
+</span></span><span style="display:flex;"><span> }
+</span></span></code></pre></div><p>添加后，它将如 <a href="https://github.com/tou-tou/magiconion-sample-client/Packages/manifest.json">manifest.json</a> 所示</p>
+<p>然后，将 server 项目作为子模块加入 client 中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>git submodule add &lt;url of MagicOnion-Sample-Server&gt; magiconion-sample-server
+</span></span></code></pre></div><p>关于添加的包</p>
+<ul>
+<li><a href="https://github.com/VeriorPies/ParrelSync">ParrelSync</a>是一个允许您启动多个 Unity 编辑器并调试多人游戏的工具。</li>
+<li>指定 <code>&quot;com.magiconion-sample-server.shared&quot;: &quot;file:../../magiconion-sample-client/magiconion-sample-server/Shared/&quot;</code>, 加载共享项目。
+<ul>
+<li><code>&quot;file:../../magiconion-sample-client/magiconion-sample-server/Shared/&quot;</code>我们之所以指定上面两级的父目录<code>../../</code>，是为了让 <code>ParrelSync</code> 能够正常工作。</li>
+</ul>
+</li>
+<li>NuGetForUnity：Unity 的 NuGet 包管理器
+<ul>
+<li>使用此功能，您无需导入<code>.unitypacakge</code>文件和加载 dll。</li>
+<li>它还管理软件包版本，使更新更容易。</li>
+</ul>
+</li>
+</ul>
+<h2 id="添加所需的-nuget-包">添加所需的 NuGet 包</h2>
+<p>首先，通过 NuGetForUnity添加YetAnotherHttpHandler依赖项。</p>
+<p>通过在 NuGetForUnity GUI 上单击或编写以下内容来<code>Assets/package.config</code>添加上面列出的所需库。</p>
+<p>另外，既然要看情况，我就补充一下<code>MessagePack 2.5.140</code>和<code>Microsoft.NET.StringTools &gt;=17.6.3</code>。</p>
+<p><a href="https://www.nuget.org/packages/messagepack/#dependencies-body-tab">NuGet Gallery | MessagePack 2.5.140</a></p>
+<p>packages.config</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#75715e">&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;packages&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;Grpc.Core.Api&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;2.55.0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;Grpc.Net.Client&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;2.55.0&#34;</span> <span style="color:#a6e22e">manuallyInstalled=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;Grpc.Net.Common&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;2.55.0&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;Microsoft.Extensions.Logging.Abstractions&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;3.0.3&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;Microsoft.NET.StringTools&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;17.6.3&#34;</span> <span style="color:#a6e22e">manuallyInstalled=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;System.Diagnostics.DiagnosticSource&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;4.5.1&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;System.IO.Pipelines&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;7.0.0&#34;</span> <span style="color:#a6e22e">manuallyInstalled=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&lt;package</span> <span style="color:#a6e22e">id=</span><span style="color:#e6db74">&#34;System.Runtime.CompilerServices.Unsafe&#34;</span> <span style="color:#a6e22e">version=</span><span style="color:#e6db74">&#34;6.0.0&#34;</span> <span style="color:#a6e22e">manuallyInstalled=</span><span style="color:#e6db74">&#34;true&#34;</span> <span style="color:#f92672">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/packages&gt;</span>
+</span></span></code></pre></div><h2 id="将-assemblydefinition-文件添加到shared项目">将 AssemblyDefinition 文件添加到Shared项目</h2>
+<p>在服务器端，使用 csproj 文件解决包依赖关系，但在 Unity 端，使用 asmdef 文件来解决包依赖关系。</p>
+<p>从 Unity 编辑器的 Projet 窗口中打开该文件夹<code>Packages/magiconion-sampler-server shared</code>，然后在其下创建 <code>Shared.asmdef</code> 文件。</p>
+<p>将 <code>MessagePack.Annotations</code> 和 <code>MagicOnion.Abstractions</code> 添加到 <code>Assembly Deffinition References</code>。</p>
+<p>这允许您加载<code>Shared</code>项目中所需的任何 MagicOnion 或 MessagePack 依赖库。</p>
+<p><img src="/wp-content/uploads/2024/07/QQ20240718-140700.png" alt="Shared.asmdef">之后，让我们将更改推送到子模块 magiconion-sample-server 项目中的远程存储库。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># path-to/magiconion-sample-client </span>
+</span></span><span style="display:flex;"><span>&gt; cd magiconion-sample-server
+</span></span><span style="display:flex;"><span>&gt; git status
+</span></span><span style="display:flex;"><span>Untracked files:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">(</span>use <span style="color:#e6db74">&#34;git add &lt;file&gt;...&#34;</span> to include in what will be committed<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        Shared/Shared.asmdef
+</span></span><span style="display:flex;"><span>&gt; git add Shared/Shared.asmdef
+</span></span><span style="display:flex;"><span>&gt; git commit -m <span style="color:#e6db74">&#34;add asmdef&#34;</span>
+</span></span><span style="display:flex;"><span>&gt; git push origin main
+</span></span></code></pre></div><h2 id="客户端实施">客户端实施</h2>
+<p>接下来参考MagicOnion的<a href="https://github.com/Cysharp/MagicOnion?tab=readme-ov-file#streaminghub">README</a>实现Streming Hub。</p>
+<p>在 Assets 下创建 Scripts 文件夹，然后创建 GamingHubClient.cs 脚本</p>
+<p>GamingHubClient.cs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Collections.Generic;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System.Threading.Tasks;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Grpc.Core;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion.Client;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Shared.Interfaces;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> UnityEngine;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> SampleClient
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GamingHubClient</span> : IGamingHubReceiver
+</span></span><span style="display:flex;"><span>   {
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">private</span> Dictionary&lt;<span style="color:#66d9ef">string</span>, GameObject&gt; _players = <span style="color:#66d9ef">new</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">private</span> IGamingHub _client;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">readonly</span> GameObject _ownPlayer;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">public</span> GamingHubClient(GameObject player)
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>           _ownPlayer = player;
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">async</span> ValueTask&lt;GameObject&gt; ConnectAsync(ChannelBase grpcChannel, <span style="color:#66d9ef">string</span> roomName, <span style="color:#66d9ef">string</span> playerName)
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>           _client = <span style="color:#66d9ef">await</span> StreamingHubClient.ConnectAsync&lt;IGamingHub, IGamingHubReceiver&gt;(grpcChannel, <span style="color:#66d9ef">this</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">var</span> roomPlayers = <span style="color:#66d9ef">await</span> _client.JoinAsync(roomName, playerName, Vector3.zero, Quaternion.identity);
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> player <span style="color:#66d9ef">in</span> roomPlayers) (<span style="color:#66d9ef">this</span> <span style="color:#66d9ef">as</span> IGamingHubReceiver).OnJoin(player);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> _players[playerName];
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// methods send to server.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">public</span> ValueTask LeaveAsync(<span style="color:#66d9ef">string</span> playerName)
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> cube <span style="color:#66d9ef">in</span> _players)
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">if</span> (cube.Value.name != playerName)
+</span></span><span style="display:flex;"><span>                   Object.Destroy(cube.Value);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> _client.LeaveAsync();
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">public</span> ValueTask MoveAsync(Vector3 position, Quaternion rotation)
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>           <span style="color:#75715e">// たまにnullになることがあるので、nullチェックを入れる</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> (_client == <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> ValueTask();
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> _client.MoveAsync(position, rotation);
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// dispose client-connection before channel.ShutDownAsync is important!</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">public</span> Task DisposeAsync()
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> _client.DisposeAsync();
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// You can watch connection state, use this for retry etc.</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">public</span> Task WaitForDisconnect()
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">return</span> _client.WaitForDisconnect();
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// Receivers of message from server.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">void</span> IGamingHubReceiver.OnJoin(Player player)
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>           Debug.Log(<span style="color:#e6db74">&#34;Join Player:&#34;</span> + player.Name);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           <span style="color:#75715e">// 自分の場合は自分のオブジェクトを生成しない</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> (_ownPlayer.name == player.Name)
+</span></span><span style="display:flex;"><span>           {
+</span></span><span style="display:flex;"><span>               _players[player.Name] = _ownPlayer;
+</span></span><span style="display:flex;"><span>           }
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>           {
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">var</span> playerObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">var</span> LitMat = Resources.Load&lt;Material&gt;(<span style="color:#e6db74">&#34;LitMat&#34;</span>);
+</span></span><span style="display:flex;"><span>               playerObject.GetComponent&lt;Renderer&gt;().material = LitMat;
+</span></span><span style="display:flex;"><span>               playerObject.name = player.Name;
+</span></span><span style="display:flex;"><span>               playerObject.transform.SetPositionAndRotation(player.Position, player.Rotation);
+</span></span><span style="display:flex;"><span>               _players[player.Name] = playerObject;
+</span></span><span style="display:flex;"><span>           }
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">void</span> IGamingHubReceiver.OnLeave(Player player)
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>           Debug.Log(<span style="color:#e6db74">&#34;Leave Player:&#34;</span> + player.Name);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> (_players.TryGetValue(player.Name, <span style="color:#66d9ef">out</span> <span style="color:#66d9ef">var</span> cube)) Object.Destroy(cube);
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">void</span> IGamingHubReceiver.OnMove(Player player)
+</span></span><span style="display:flex;"><span>       {
+</span></span><span style="display:flex;"><span>           Debug.Log(<span style="color:#e6db74">&#34;Move Player:&#34;</span> + player.Name);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">if</span> (_players.TryGetValue(player.Name, <span style="color:#66d9ef">out</span> <span style="color:#66d9ef">var</span> cube))
+</span></span><span style="display:flex;"><span>           {
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">if</span> (player.Name == _ownPlayer.name) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>               cube.transform.SetPositionAndRotation(player.Position, player.Rotation);
+</span></span><span style="display:flex;"><span>           }
+</span></span><span style="display:flex;"><span>       }
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="添加cube控制器">添加Cube控制器</h2>
+<p>允许您使用键盘输入操作 Cube。</p>
+<p>创建 Controller.cs 脚本</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> UnityEngine;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> SampleClient
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Controller</span> : MonoBehaviour
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">float</span> moveSpeed = <span style="color:#ae81ff">5.0f</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">void</span> Update()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (Input.GetKey(KeyCode.W))
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                transform.Translate(Vector3.forward * (moveSpeed * Time.deltaTime));
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (Input.GetKey(KeyCode.S))
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                transform.Translate(Vector3.back * (moveSpeed * Time.deltaTime));
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (Input.GetKey(KeyCode.A))
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                transform.Translate(Vector3.left * (moveSpeed * Time.deltaTime));
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (Input.GetKey(KeyCode.D))
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                transform.Translate(Vector3.right * (moveSpeed * Time.deltaTime));
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (Input.GetKey(KeyCode.Q))
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                transform.Translate(Vector3.up * (moveSpeed * Time.deltaTime));
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (Input.GetKey(KeyCode.Z))
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                transform.Translate(Vector3.down * (moveSpeed * Time.deltaTime));
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>如下图所示，在场景中创建一个Cube（名称为user1），并将<code>Controller.cs</code>上面的内容附加到user1上。</p>
+<p>//todo 补一张图</p>
+<h2 id="使用-ui-toolkit-添加-ui">使用 UI ToolKit 添加 UI</h2>
+<p>基于<code>UI ToolKit</code>创建简单的UI并构建高效的 UI。如果还不了解 UI ToolKit 请先看<a href="https://docs.unity3d.com/Manual/UIE-get-started-with-runtime-ui.html">官方文档</a>熟悉一下。</p>
+<p>例如，创建如下所示的 UI。 <img src="/wp-content/uploads/2024/07/QQ20240718-111819.png" alt="UI Builder"></p>
+<p>让我们链接上面 UI 的每个按钮和功能，并编写一些可以工作的代码。 （UI和功能没有分离，Dispose处理很可疑，但目前可以使用&hellip;&hellip;）</p>
+<p>SampleUIClient.cs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> System;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Cysharp.Net.Http;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Grpc.Core;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Shared.Interfaces;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Grpc.Net.Client;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion.Client;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> UnityEngine;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> UnityEngine.UIElements;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> SampleClient
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SampleUIClient</span> : MonoBehaviour
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">        [SerializeField]</span> <span style="color:#66d9ef">private</span> GameObject playerObject;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> GamingHubClient _hubClient;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> ChannelBase _channel;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> TextField nameField;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> TextField roomField;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">bool</span> _isConnected = <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">void</span> Start()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            _channel = GrpcChannelx.ForAddress(<span style="color:#e6db74">&#34;http://127.0.0.1:5001/&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> serviceClient = MagicOnionClient.Create&lt;IMyFirstService&gt;(_channel);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> result = <span style="color:#66d9ef">await</span> serviceClient.SumAsync(<span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">200</span>);
+</span></span><span style="display:flex;"><span>            Debug.Log(result);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// UIボタンと機能の連携</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> root = GetComponent&lt;UIDocument&gt;().rootVisualElement;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> button = root.Q&lt;Button&gt;(<span style="color:#e6db74">&#34;Connect&#34;</span>);
+</span></span><span style="display:flex;"><span>            button.clicked += <span style="color:#66d9ef">async</span> () =&gt;
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                Debug.Log(<span style="color:#e6db74">&#34;room Button clicked!&#34;</span>);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (_isConnected) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>                _hubClient = <span style="color:#66d9ef">new</span> GamingHubClient(playerObject);
+</span></span><span style="display:flex;"><span>                _ = <span style="color:#66d9ef">await</span> _hubClient.ConnectAsync(_channel, roomField.<span style="color:#66d9ef">value</span>, nameField.<span style="color:#66d9ef">value</span>);
+</span></span><span style="display:flex;"><span>                _isConnected = <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                nameField.isReadOnly = <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>                nameField.isReadOnly = <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> button2 = root.Q&lt;Button&gt;(<span style="color:#e6db74">&#34;Disconnect&#34;</span>);
+</span></span><span style="display:flex;"><span>            button2.clicked += <span style="color:#66d9ef">async</span> () =&gt;
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                Debug.Log(<span style="color:#e6db74">&#34;name Button clicked!&#34;</span>);
+</span></span><span style="display:flex;"><span>                _isConnected = <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                nameField.isReadOnly = <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                nameField.isReadOnly = <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">await</span> _hubClient.LeaveAsync(playerObject.name);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">await</span> _hubClient.DisposeAsync();
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            nameField = root.Q&lt;TextField&gt;(<span style="color:#e6db74">&#34;name&#34;</span>);
+</span></span><span style="display:flex;"><span>            playerObject.name = nameField.<span style="color:#66d9ef">value</span>;
+</span></span><span style="display:flex;"><span>            nameField.RegisterValueChangedCallback(evt =&gt;
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                Debug.Log(<span style="color:#e6db74">&#34;Entered Name: &#34;</span> + evt.newValue);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (!_isConnected) playerObject.name = evt.newValue;
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            roomField = root.Q&lt;TextField&gt;(<span style="color:#e6db74">&#34;room&#34;</span>);
+</span></span><span style="display:flex;"><span>            roomField.RegisterValueChangedCallback(evt =&gt;
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                Debug.Log(<span style="color:#e6db74">&#34;Entered Name: &#34;</span> + evt.newValue);
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (_isConnected) roomField.isReadOnly = <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">void</span> Update()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (_hubClient == <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (_isConnected)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> position = playerObject.transform.position;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">var</span> rotation = playerObject.transform.rotation;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">await</span> _hubClient.MoveAsync(position, rotation);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">void</span> OnApplicationQuit()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (_hubClient == <span style="color:#66d9ef">null</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">await</span> _hubClient.LeaveAsync(playerObject.name);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">await</span> _hubClient.DisposeAsync();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>将上述脚本附加到场景中存在的 UI 文档所附加的游戏对象（下例中的 UIClient），并将您之前创建的 user1 分配给玩家对象。 <img src="/wp-content/uploads/2024/07/7c71b3129d322ffd69e492af.jpg" alt=""></p>
+<h2 id="生成-il2cpp-代码">生成 IL2CPP 代码</h2>
+<p>IL2CPP 是一种在构建时将 Unity 脚本中的 C# 代码生成的中间语言代码转换为 C++ 代码，然后编译为本机代码以生成可执行文件的机制。</p>
+<p>另外，在通信部分（MagicOnion）和序列化部分（MessagePack）中使用了反射函数的一部分（在本例中，是一种使用对象类型信息动态生成高效代码的机制）。在大多数情况下，IL2CPP 禁止在以下位置动态生成代码。运行时，并限制依赖于动态代码生成的反射功能。</p>
+<p>因此，IL2CPP要求提前生成依赖动态代码生成的反射函数所需的所有代码。</p>
+<p>为了解决上述问题，MessagePack提供了代码生成工具，MagicOnion提供了SourceGnerator，所以我们将使用它们。</p>
+<h3 id="messagepack-for-c-代码生成">MessagePack for C# 代码生成</h3>
+<p>使用 mpc (MessagePack Codegen) 生成代码。这是作为编辑器扩展提供的，因此请使用它。请参阅MessagePack <a href="https://github.com/MessagePack-CSharp/MessagePack-CSharp?tab=readme-ov-file#aot-code-generation-support-for-unityxamarin">README</a>继续操作。</p>
+<p>首先需要生成 Shared.csproj 文件</p>
+<p>在 External Tools 中，将 <code>Local packages</code> 勾上，点击 <code>Regenerate project files</code> ，生成 Shared.csproj <img src="/wp-content/uploads/2024/07/QQ20240718-114056.png" alt="">然后，按照以下设置，生成代码 <img src="/wp-content/uploads/2024/07/7d8019992f78b6b861015249.jpg" alt="MessagePack CodeGen">上面的例子将生成：<code>Assets/Scripts/Generated/Serializer.generated.cs</code></p>
+<h3 id="magiconion-和-resolver-注册的代码生成">MagicOnion 和 Resolver 注册的代码生成</h3>
+<p>根据MagicOnion 的自述文件，它可以使用源生成器生成。</p>
+<p>确保上面生成的代码 (<code>MessagePackSampleResolver.Instance</code>和<code>MagicOnionClientInitializer.Resolver</code>)在运行时注册在静态实例中。</p>
+<p>在Assets/Scripts/目录下创建以下内容Initializer.cs。</p>
+<p>Initializer.cs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Grpc.Net.Client;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion.Client;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MagicOnion.Unity;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MessagePack;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> MessagePack.Resolvers;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> UnityEngine;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> SampleClient
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Shared プロジェクト のアセンブリに含まれていれば、`IMyFirstService` か `IGamingHub` のどちらの指定でもOK</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">    [MagicOnionClientGeneration(typeof(Shared.Interfaces.IMyFirstService))]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">internal</span> <span style="color:#66d9ef">partial</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MagicOnionClientInitializer</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Initializer</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> RegisterResolvers()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// NOTE: Currently, CompositeResolver doesn&#39;t work on Unity IL2CPP build. Use StaticCompositeResolver instead of it.</span>
+</span></span><span style="display:flex;"><span>            StaticCompositeResolver.Instance.Register(
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// This resolver is generated by MagicOnion&#39;s Source Generator.</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// See below for details. https://github.com/Cysharp/MagicOnion?tab=readme-ov-file#ahead-of-time-compilation-support-with-source-generator</span>
+</span></span><span style="display:flex;"><span>                MagicOnionClientInitializer.Resolver,
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// This resolver is generated by MessagePack&#39;s code generator.</span>
+</span></span><span style="display:flex;"><span>                MessagePackSampleResolver.Instance,
+</span></span><span style="display:flex;"><span>                BuiltinResolver.Instance,
+</span></span><span style="display:flex;"><span>                PrimitiveObjectResolver.Instance,
+</span></span><span style="display:flex;"><span>                MessagePack.Unity.UnityResolver.Instance,
+</span></span><span style="display:flex;"><span>                StandardResolver.Instance
+</span></span><span style="display:flex;"><span>            );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            MessagePackSerializer.DefaultOptions = MessagePackSerializer.DefaultOptions
+</span></span><span style="display:flex;"><span>                .WithResolver(StaticCompositeResolver.Instance);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> OnRuntimeInitialize()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            GrpcChannelProviderHost.Initialize(
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">new</span> GrpcNetClientGrpcChannelProvider(() =&gt; <span style="color:#66d9ef">new</span> GrpcChannelOptions()
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    HttpHandler = <span style="color:#66d9ef">new</span> Cysharp.Net.Http.YetAnotherHttpHandler()
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        Http2Only = <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="材质设置">材质设置</h2>
+<p>在目录<code>Assets/Rsources</code>中生成一个材质<code>LitMat</code>，名称如下图所示。着色器是<code>Universal Render Pipeline/Lit</code>。通过将 LitMat 拖放到 user1 来更改user1 的材质。</p>
+<p><img src="https://res.cloudinary.com/zenn/image/fetch/s--NFbeLPlp--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/6d7ae40ef5901e5c83dda754.png%3Fsha%3Df00c9279374a899d932b7d144eaa685d9fb569b5" alt=""></p>
+<p>GameObject.CreatePrimitive(PrimitiveType.Cube)该材质附加到生成的立方体上，如下所示。由于某种原因，使用此方法时，在构建 URP 项目时未附加预期的材料。</p>
+<p>Scripts/GamingHubClient.cs</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> playerObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+</span></span><span style="display:flex;"><span>Material LitMat = Resources.Load&lt;Material&gt;(<span style="color:#e6db74">&#34;LitMat&#34;</span>);
+</span></span><span style="display:flex;"><span>playerObject.GetComponent&lt;Renderer&gt;().material = LitMat;
+</span></span></code></pre></div><h2 id="配置-il2cpp-构建">配置 IL2CPP 构建</h2>
+<p>最后，配置 IL2CPP 构建的设置。</p>
+<p>从 Unity 编辑器中点击 <code>file</code> -&gt; <code>BuildSetting</code> -&gt; <code>PlayerSetting</code> -&gt; <code>player</code></p>
+<p>IL2CPP 后端脚本编写</p>
+<p><img src="https://res.cloudinary.com/zenn/image/fetch/s--HY80QzqC--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/519fc7982ef9772ce77c6748.png%3Fsha%3Daec2a04c6ad2ae388466ceb3b0619b3a97bf56ea" alt=""></p>
+<p>在后台运行</p>
+<p><img src="https://res.cloudinary.com/zenn/image/fetch/s--EIDhiwWw--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/f8f973142c36f2e65a1c03ba.png%3Fsha%3D9cf491de8f9f1c8ea1392518582581796e9f0d23" alt=""></p>
+<p>将应用程序窗口大小调整为合适的大小</p>
+<p><img src="https://res.cloudinary.com/zenn/image/fetch/s--cFwR9ivm--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_1200/https://storage.googleapis.com/zenn-user-upload/deployed-images/96607a105d8dd0458558f69d.png%3Fsha%3Db91961d18b81440aa767b3801c2cf121775822a8" alt=""></p>
+<p>从 <code>file</code> -&gt; <code>BuildSetting</code> -&gt; <code>build</code> 来构建应用程序。</p>
+<h2 id="移动">移动</h2>
+<p>通过直接从 IDE 运行 magiconion-sample-server 服务器项目或通过构建并运行可执行文件来启动服务器。 多次单击您之前创建的 Unity 客户端可执行文件以启动多个客户端。</p>
+<p>我感觉是这样的。<a href="https://x.com/__tou__tou/status/1743201497654173782?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1743201497654173782%7Ctwgr%5E%7Ctwcon%5Es1_&amp;ref_url=https%3A%2F%2Fembed.zenn.studio%2Ftweetzenn-embedded__31fdb5898b497">video</a></p>
+<h2 id="最后">最后</h2>
+<p>搭建环境很困难，因为有很多令人惊讶的地方，但我很高兴客户端和服务器都可以用 C# 实现！</p>
+<p>未来我希望能够写出以下内容的文章作为MagicOnion的素材。</p>
+<ul>
+<li>使用 MagicOnion + MessgePack + YetAnotherHttpHandler 创建实时服务器（本文）</li>
+<li>使用 Unity (YetAnotherHttpHandler) 和 MagicOnion 的自签名证书进行 HTTPS 和 HTTP/2 通信</li>
+<li>在 GCP 上部署 MagicOnion Server 容器</li>
+<li>使用 DFrame 对 MagicOnion 服务器进行负载测试</li>
+<li>由于添加反向代理以进行 TLS 终止而导致服务器性能差异</li>
+</ul>
+<h2 id="参考文章">参考文章</h2>
+<ul>
+<li><a href="https://zenn.dev/toutou/articles/7918da3d1a9e1d#shared-%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%81%AE%E7%94%A8%E6%84%8F">原文</a></li>
+<li><a href="https://grpc.io/blog/grpc-csharp-future/">The future of gRPC in C# belongs to grpc-dotnet | gRPC</a></li>
+<li><a href="https://neue.cc/2023/07/28_yetanotherhttphandler.html">neue cc - Unity用のHTTP/2(gRPC) Client、YetAnotherHttpHandlerを公開しました</a></li>
+<li><a href="https://synamon.hatenablog.com/entry/grpc-dotnet-unity">Unityでもgrpc-dotnetを使ったgRPCがしたい - Activ8 Tech Blog</a></li>
+<li><a href="https://zenn.dev/turing_motors/articles/7f5cc78c5d5b55">UnityとC#で簡単にgRPCする in 2023</a></li>
+<li><a href="https://zenn.dev/fumio_dev/scraps/0dd9b71c81a4f2">MagicOnion+MemoryPack+YetAnotherHttpHandler on Azure Container Apps 構築のログ</a></li>
+</ul>
+
+  </div>
+  
+  <a href="/" class="back-link">← Back to home</a>
+</div>
+
+    </div>
+    
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true,
+      processEnvironments: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+  </body>
+</html>
