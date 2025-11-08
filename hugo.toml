@@ -6,4 +6,8 @@ title = 'Bruce'
   [caches.images]
     dir = ':cacheDir/images'
 
-theme = 'ritzy'
+themes = ['ritzy']
+
+[module]
+  [[module.imports]]
+    path = 'ritzy'
