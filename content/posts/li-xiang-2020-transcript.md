@@ -1,6 +1,6 @@
 ---
 title: 李想2020演讲实录：从三次创业看专业CEO的认知方法论
-date: '2024-04-20T10:06:46+08:00'
+date: '2023-04-20T10:06:46+08:00'
 slug: li-xiang-2020-transcript
 draft: false
 author: bruce

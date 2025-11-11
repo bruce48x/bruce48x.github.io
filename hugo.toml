@@ -6,7 +6,8 @@ title = 'Bruce'
   [caches.images]
     dir = ':cacheDir/images'
 
-themes = ['ritzy']
+[markup.goldmark.renderer]
+unsafe = true
 
 [module]
   [[module.imports]]
