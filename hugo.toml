@@ -1,6 +1,7 @@
 baseURL = 'https://bruce48x.github.io/'
 languageCode = 'zh-cn'
 title = 'Bruce'
+theme = ["PaperMod"]
 
 [caches]
   [caches.images]
@@ -8,7 +9,3 @@ title = 'Bruce'
 
 [markup.goldmark.renderer]
 unsafe = true
-
-[module]
-  [[module.imports]]
-    path = 'ritzy'

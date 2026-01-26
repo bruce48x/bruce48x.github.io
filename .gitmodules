@@ -7,3 +7,6 @@
 [submodule "themes/ritzy"]
 	path = themes/ritzy
 	url = https://github.com/ddritzenhoff/ritzy.git
+[submodule "themes/PaperMod"]
+	path = themes/PaperMod
+	url = https://github.com/adityatelange/hugo-PaperMod.git

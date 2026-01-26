@@ -1,0 +1,18 @@
+/* 修改主容器宽度 */
+:root {
+    --main-width: 1300px;    /* 默认通常是 800px，你可以改成 1200px 或更多 */
+    --content-width: 1200px; /* 内容区域宽度 */
+}
+
+/* 如果你希望在大屏幕上更宽，可以针对特定屏幕尺寸调整 */
+@media screen and (min-width: 1280px) {
+    .main {
+        max-width: var(--main-width);
+    }
+}
+
+/* 确保文章内部的图片和代码块能撑满新宽度 */
+.post-content img, 
+.post-content pre {
+    width: 100%;
+}
