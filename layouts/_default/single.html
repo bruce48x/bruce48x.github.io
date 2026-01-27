@@ -1,0 +1,68 @@
+{{- define "main" }}
+{{- if .Params.cover.image }}
+<div class="post-header">
+  <img src="{{ .Params.cover.image | absURL }}" class="post-cover" alt="{{ .Title | plainify }}" />
+</div>
+{{- end }}
+
+<article class="post-single">
+  <header class="post-header">
+    {{- partial "breadcrumbs.html" . }}
+    <h1 class="post-title">{{ .Title }}</h1>
+    
+    {{- if .Description }}
+    <div class="post-description">{{ .Description }}</div>
+    {{- end }}
+    
+    {{- if not (.Param "hideMeta") }}
+    <div class="post-meta">
+      {{- partial "post_meta.html" . -}}
+      {{- partial "translation_list.html" . -}}
+      {{- partial "edit_post.html" . -}}
+      {{- partial "post_canonical.html" . -}}
+    </div>
+    {{- end }}
+  </header>
+
+  <div class="post-content-container">
+    <!-- 侧边目录 -->
+    {{- if (.Param "ShowToc") }}
+    <div class="toc-sidebar">
+      <div class="toc-wrapper">
+        {{- partial "toc.html" . }}
+      </div>
+    </div>
+    {{- end }}
+
+    <!-- 主要内容 -->
+    <div class="post-content">
+      {{- if not (.Param "disableAnchoredHeadings") }}
+      {{- partial "anchored_headings.html" .Content -}}
+      {{- else }}{{ .Content }}{{ end }}
+    </div>
+  </div>
+
+  <footer class="post-footer">
+    {{- if .Params.tags }}
+    <ul class="post-tags">
+      {{- range .Params.tags }}
+      {{- $href := print (absURL "tags/") (urlize .) }}
+      <li><a href="{{ $href }}">{{ . }}</a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+    
+    {{- if (.Param "ShowPostNavLinks") }}
+    {{- partial "post_nav_links.html" . }}
+    {{- end }}
+    
+    {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
+    {{- partial "share_icons.html" . }}
+    {{- end }}
+  </footer>
+
+  {{- if and (.Param "comments") (not (eq .Params.comments false)) }}
+  {{- partial "comments.html" . }}
+  {{- end }}
+</article>
+{{- end }}

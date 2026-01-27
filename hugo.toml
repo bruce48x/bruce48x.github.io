@@ -9,3 +9,10 @@ theme = ["PaperMod"]
 
 [markup.goldmark.renderer]
 unsafe = true
+
+[params]
+  # 启用目录
+  ShowToc = true
+  
+  # 目录默认展开（可选）
+  TocOpen = true
