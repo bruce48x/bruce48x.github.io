@@ -443,7 +443,7 @@ manfest.json
  }
 ```
 
-添加后，它将如 [manifest.json](https://github.com/tou-tou/magiconion-sample-client/Packages/manifest.json) 所示
+添加后，它将如 [manifest.json](https://github.com/bruce48x/MagicOnion-Sample-Client/blob/main/Packages/manifest.json) 所示
 
 然后，将 server 项目作为子模块加入 client 中
 
