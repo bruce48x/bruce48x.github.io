@@ -145,7 +145,7 @@ Shared
 
 ## 准备 Server 项目
 
-接下来，我们将准备Server项目。 首先，添加 ULinkRPC.Runtime 0.1.0 和Shared项目。 Server.csproj
+接下来，我们将准备Server项目。 首先，添加 ULinkRPC.Runtime 0.1.3 和Shared项目。 Server.csproj
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -158,7 +158,7 @@ Shared
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ULinkRPC.Runtime" Version="0.1.0"/>
+    <PackageReference Include="ULinkRPC.Runtime" Version="0.1.3"/>
     <ProjectReference Include="../Shared/Shared.csproj"/>
   </ItemGroup>
 
@@ -182,15 +182,13 @@ Server
 MyFistService.cs
 
 ```csharp
-using Game.Rpc.Runtime;
+using ULinkRPC.Runtime;
 using Shared.Interfaces;
 
 namespace Server.Services;
 
-// copied from https://github.com/Cysharp/MagicOnion#service-implementation-server-side
 // Implements RPC service in the server project.
-// The implementation class must inherit `ServiceBase<IMyFirstService>` and `IMyFirstService`
-public class MyFirstService : ServiceBase<IMyFirstService>, IMyFirstService
+public class MyFirstService : IMyFirstService
 {
     // `UnaryResult<T>` allows the method to be treated as `async` method.
     public async UnaryResult<int> SumAsync(int x, int y)
@@ -200,6 +198,14 @@ public class MyFirstService : ServiceBase<IMyFirstService>, IMyFirstService
     }
 }
 
+```
+
+## 生成 Service Binder
+
+执行以下命令生成 Service Binder
+
+```sh
+ulinkrpc-codegen
 ```
 
 ## 实现 Server 程序的入口点
@@ -231,16 +237,13 @@ internal static class Program
                 endpointOptions.Protocols = HttpProtocols.Http2;
             });
 
-            // HTTP/1.1エンドポイントの設定
             options.Listen(IPAddress.Parse("0.0.0.0"), 5000, listenOptions =>
             {
                 listenOptions.Protocols = HttpProtocols.Http1;
             });
 
-            // HTTP/2 ,HTTPS エンドポイントの設定
             options.Listen(IPAddress.Parse("0.0.0.0"), 5001, listenOptions =>
             {
-                // --load-cert=true が指定されていたら証明書を読み込む
                 if (args.Any(arg => arg == "--load-cert=true"))
                 {
                     Console.WriteLine("load certificate");
@@ -254,10 +257,8 @@ internal static class Program
 
         var app = builder.Build();
 
-        // テスト用のエンドポイント
         app.MapGet("/", () => "Hello World!");
 
-        // MagicOnionのエンドポイント
         app.MapMagicOnionService();
 
         app.Run();
