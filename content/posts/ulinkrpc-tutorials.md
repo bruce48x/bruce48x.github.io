@@ -202,10 +202,16 @@ public class MyFirstService : IMyFirstService
 
 ## 生成 Service Binder
 
+先安装代码生成器
+
+```sh
+dotnet tool install -g ULinkRPC.CodeGen
+```
+
 执行以下命令生成 Service Binder
 
 ```sh
-ulinkrpc-codegen
+ulinkrpc-codegen --contracts ../Shared
 ```
 
 ## 实现 Server 程序的入口点
