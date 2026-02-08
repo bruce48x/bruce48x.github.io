@@ -413,10 +413,6 @@ packages.config
 
 从 Unity 编辑器的 Projet 窗口中打开该文件夹`Packages/ulinkrpc-sample-server shared`，然后在其下创建 `Shared.asmdef` 文件。
 
-将 `MessagePack.Annotations` 和 `MagicOnion.Abstractions` 添加到 `Assembly Deffinition References`。
-
-这允许您加载`Shared`项目中所需的任何 MagicOnion 或 MessagePack 依赖库。
-
 ![Shared.asmdef](/wp-content/uploads/2024/07/QQ20240718-140700.png)之后，让我们将更改推送到子模块 ulinkrpc-sample-server 项目中的远程存储库。
 
 ```shell
@@ -433,8 +429,6 @@ Untracked files:
 ```
 
 ## 客户端实施
-
-接下来参考MagicOnion的[README](https://github.com/Cysharp/MagicOnion?tab=readme-ov-file#streaminghub)实现Streming Hub。
 
 在 Assets 下创建 Scripts 文件夹，然后创建 GamingHubClient.cs 脚本
 
