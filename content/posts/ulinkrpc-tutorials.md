@@ -95,7 +95,7 @@ Shared 项目定义一个接口。Shared项目中定义的接口将在 Server �
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ULinkRPC.Runtime" Version="0.1.3" />
+    <PackageReference Include="ULinkRPC.Runtime" Version="0.1.4" />
   </ItemGroup>
 
 </Project>
@@ -108,14 +108,16 @@ Shared 项目定义一个接口。Shared项目中定义的接口将在 Server �
 IMyFirstService.cs
 
 ```csharp
+using System.Threading.Tasks;
 using ULinkRPC.Runtime;
+
 namespace Shared.Interfaces
 {
     [RpcService(1)]
     public interface IMyFirstService
     {
         [RpcMethod(1)]
-        UnaryResult<int> SumAsync(int x, int y);
+        ValueTask<int> SumAsync(int x, int y);
     }
 }
 ```
@@ -144,7 +146,7 @@ Shared
 
 ## 准备 Server 项目
 
-接下来，我们将准备Server项目。 首先，添加 ULinkRPC.Runtime 0.1.3 和Shared项目。 Server.csproj
+接下来，我们将准备Server项目。 首先，添加 ULinkRPC.Runtime 0.1.4 和Shared项目。 Server.csproj
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
