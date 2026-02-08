@@ -44,7 +44,11 @@ ULinkRPC-Sample-Server
 
 ## 创建解决方案
 
-创建一个 .NET 解决方案和两个项目，并将这两个项目添加到该解决方案中。 这两个项目之一是 Server 项目，其中包含 ULinkRPC Server 实现。第二个是Shared项目，它在Server和Unity客户端之间共享，定义了一组Interface。在Server项目端实现该接口，在Unity客户端使用该接口。
+创建一个 .NET 解决方案和两个项目，并将这两个项目添加到该解决方案中。 
+
+这两个项目之一是 Shared 项目，它在Server和Unity客户端之间共享，定义了一组Interface。在Server项目端实现该接口，在Unity客户端使用该接口。
+
+第二个是 Server 项目，其包含 Shared Interfaces 实现。
 
 ```shell
 > cd ULinkRPC-Sample-Server
@@ -78,7 +82,7 @@ ULinkRPC-Sample-Server
 
 ```
 
-另外，Shared 工程在服务器端是在 .NET 10 环境中执行的，在 Unity 客户端是在 Unity 2022.3 编译环境（最高兼容C#9.0）中执行的，所以必须用C#9.0语法来编写。
+另外，Shared 工程在 Unity 客户端是在 Unity 2022.3 编译环境（最高兼容C#9.0）中执行的，所以必须用C#9.0语法来编写。
 
 ## 准备 Shared 项目
 
@@ -146,7 +150,9 @@ Shared
 
 ## 准备 Server 项目
 
-接下来，我们将准备Server项目。 首先，添加 ULinkRPC.Runtime 0.1.4 和Shared项目。 Server.csproj
+接下来，我们将准备Server项目。 首先，添加 Shared 项目。 
+
+Server.csproj
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
