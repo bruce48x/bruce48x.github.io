@@ -185,17 +185,15 @@ using Shared.Interfaces;
 
 namespace Server.Services;
 
-// Implements RPC service in the server project.
 public class MyFirstService : IMyFirstService
 {
     // `UnaryResult<T>` allows the method to be treated as `async` method.
-    public async UnaryResult<int> SumAsync(int x, int y)
+    public ValueTask<int> SumAsync(int x, int y)
     {
         Console.WriteLine($"Received:{x}, {y}");
-        return x + y;
+        return new ValueTask<int>(x + y);
     }
 }
-
 ```
 
 ## 生成 Service Binder
@@ -225,8 +223,8 @@ ulinkrpc-codegen --contracts ../Shared
 ```csharp
 using System.Net;
 using System.Net.Sockets;
-using RpcCall.Server.Generated;
-using RpcCall.Server.Services;
+using Shared.Interfaces.Server.Generated;
+using Server.Services;
 using ULinkRPC.Runtime;
 
 const int defaultTcpPort = 20000;
@@ -290,7 +288,7 @@ async Task RunConnectionAsync(ITransport transport, string remote, CancellationT
     {
         server = new RpcServer(transport);
 
-        AllServicesBinder.BindAll(server, new PlayerService());
+        AllServicesBinder.BindAll(server, new MyFirstService());
         await server.StartAsync(hostCt).ConfigureAwait(false);
         await server.WaitForCompletionAsync().ConfigureAwait(false);
     }
@@ -312,7 +310,6 @@ async Task RunConnectionAsync(ITransport transport, string remote, CancellationT
 
     Console.WriteLine($"[{remote}] Disconnected.");
 }
-
 ```
 
 我们考虑以下几点：
