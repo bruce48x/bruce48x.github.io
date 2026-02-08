@@ -195,7 +195,6 @@ namespace Server.Services;
 
 public class MyFirstService : IMyFirstService
 {
-    // `UnaryResult<T>` allows the method to be treated as `async` method.
     public ValueTask<int> SumAsync(int x, int y)
     {
         Console.WriteLine($"Received:{x}, {y}");
@@ -341,8 +340,8 @@ git push origin main
 - 从 UnityHub 创建合适的 Unity 项目 
   - 我选择了Unity2022.3.62f3c1 & URP 3D模板。
 - 添加.gitignore、.gitattribute 
-  - [magiconion-样本-客户端/.gitignore](https://github.com/tou-tou/magiconion-sample-client/blob/main/.gitignore)
-  - [magiconion-样本-客户端/.gitattributes](https://github.com/tou-tou/magiconion-sample-client/blob/main/.gitattributes)
+  - [ULinkRPC-Sample-Client/.gitignore](https://github.com/bruce48x/ulinkrpc-sample-client/blob/main/.gitignore)
+  - [ULinkRPC-Sample-Client/.gitattributes](https://github.com/bruce48x/ulinkrpc-sampleclient/blob/main/.gitattributes)
 - 使用以下命令创建本地 git 存储库`git init`
 
 ## 通过openupm添加所需的Unity包
@@ -369,7 +368,7 @@ manfest.json
 ...
  "dependencies": {
     "com.github-glitchenzo.nugetforunity": "4.5.0",
-    "com.ulinkrpc-sample-server.shared": "file:../../ulinkrpc-sample-client/ulinkrpc-sample-server/Shared/"
+    "com.ulinkrpc-sample-server.shared": "file:../ulinkrpc-sample-server/Shared/"
  }
 ```
 
@@ -383,8 +382,6 @@ git submodule add https://github.com/bruce48x/ULinkRPC-Sample-Server ulinkrpc-sa
 
 关于添加的包
 
-- 指定 `"com.ulinkrpc-sample-server.shared": "file:../../ulinkrpc-sample-client/ulinkrpc-sample-server/Shared/"`, 加载共享项目。 
-  - `"file:../../ulinkrpc-sample-client/ulinkrpc-sample-server/Shared/"`我们之所以指定上面两级的父目录`../../`，是为了让 `ParrelSync` 能够正常工作。
 - NuGetForUnity：Unity 的 NuGet 包管理器 
   - 使用此功能，您无需导入`.unitypacakge`文件和加载 dll。
   - 它还管理软件包版本，使更新更容易。
@@ -396,6 +393,8 @@ git submodule add https://github.com/bruce48x/ULinkRPC-Sample-Server ulinkrpc-sa
 通过在 NuGetForUnity GUI 上单击或编写以下内容来`Assets/package.config`添加上面列出的所需库。
 
 [NuGet Gallery | MemoryPack 1.21.4](https://www.nuget.org/packages/MemoryPack#dependencies-body-tab)
+[NuGet Gallery | Kcp 2.7.0](https://www.nuget.org/packages/Kcp)
+[NuGet Gallery | System.Text.Json 10.0.2](https://www.nuget.org/packages/System.Text.Json)
 
 packages.config
 
