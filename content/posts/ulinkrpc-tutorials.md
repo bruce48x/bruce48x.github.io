@@ -206,6 +206,12 @@ public class MyFirstService : IMyFirstService
 dotnet tool install -g ULinkRPC.CodeGen
 ```
 
+安装之后，该命令位于 `~/.dotnet/tools` 下，需要将该路径加入全局变量 `$PATH` 使得 shell 可以找到这个命令
+```sh
+echo 'export PATH="$HOME/.dotnet/tools:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
 执行以下命令生成 Service Binder
 
 ```sh
