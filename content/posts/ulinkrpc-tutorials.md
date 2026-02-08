@@ -95,11 +95,10 @@ Shared 项目定义一个接口。Shared项目中定义的接口将在 Server �
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ULinkRPC.Runtime" Version="0.1.0" />
+    <PackageReference Include="ULinkRPC.Runtime" Version="0.1.3" />
   </ItemGroup>
 
 </Project>
-
 ```
 
 ## 在Shared项目中定义接口
@@ -158,7 +157,6 @@ Shared
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ULinkRPC.Runtime" Version="0.1.3"/>
     <ProjectReference Include="../Shared/Shared.csproj"/>
   </ItemGroup>
 
@@ -216,59 +214,97 @@ ulinkrpc-codegen --contracts ../Shared
 
 ## 实现 Server 程序的入口点
 
-我将把这些内容写成服务器程序的入口点。
-
-Program.cs
+将以下内容写入服务器程序的入口点 Program.cs
 
 ```csharp
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.Extensions.DependencyInjection;
+using System.Net.Sockets;
+using RpcCall.Server.Generated;
+using RpcCall.Server.Services;
+using ULinkRPC.Runtime;
 
-namespace Server;
-
-internal static class Program
+const int defaultTcpPort = 20000;
+var tcpPort = defaultTcpPort;
+if (args.Length > 0 && int.TryParse(args[0], out var p))
+    tcpPort = p;
+using var cts = new CancellationTokenSource();
+Console.CancelKeyPress += (_, e) =>
 {
-    public static void Main(string[] args)
+    e.Cancel = true;
+    cts.Cancel();
+};
+
+Console.WriteLine($"RpcCall Server TCP listening on 0.0.0.0:{tcpPort}. Press Ctrl+C to stop.");
+
+var tcpTask = RunTcpListenerAsync(tcpPort, cts.Token);
+
+try
+{
+    await tcpTask.ConfigureAwait(false);
+}
+finally
+{
+    Console.WriteLine("Server stopped.");
+}
+
+async Task RunTcpListenerAsync(int port, CancellationToken hostCt)
+{
+    var listener = new TcpListener(IPAddress.Any, port);
+    listener.Start();
+
+    try
     {
-        var builder = WebApplication.CreateBuilder(args);
-
-        builder.WebHost.UseKestrel(options =>
+        while (!hostCt.IsCancellationRequested)
         {
-            options.ConfigureEndpointDefaults(endpointOptions =>
+            TcpClient client;
+            try
             {
-                endpointOptions.Protocols = HttpProtocols.Http2;
-            });
-
-            options.Listen(IPAddress.Parse("0.0.0.0"), 5000, listenOptions =>
+                client = await listener.AcceptTcpClientAsync(hostCt).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
             {
-                listenOptions.Protocols = HttpProtocols.Http1;
-            });
+                break;
+            }
 
-            options.Listen(IPAddress.Parse("0.0.0.0"), 5001, listenOptions =>
-            {
-                if (args.Any(arg => arg == "--load-cert=true"))
-                {
-                    Console.WriteLine("load certificate");
-                    listenOptions.UseHttps(new X509Certificate2("certificate/certificate.pfx","test"));
-                }
-            });
-        });
-
-        builder.Services.AddGrpc();
-        builder.Services.AddMagicOnion();
-
-        var app = builder.Build();
-
-        app.MapGet("/", () => "Hello World!");
-
-        app.MapMagicOnionService();
-
-        app.Run();
+            var transport = new TcpServerTransport(client);
+            _ = RunConnectionAsync(transport, client.Client.RemoteEndPoint?.ToString() ?? "?", hostCt);
+        }
     }
+    finally
+    {
+        listener.Stop();
+    }
+}
+
+async Task RunConnectionAsync(ITransport transport, string remote, CancellationToken hostCt)
+{
+    RpcServer? server = null;
+
+    try
+    {
+        server = new RpcServer(transport);
+
+        AllServicesBinder.BindAll(server, new PlayerService());
+        await server.StartAsync(hostCt).ConfigureAwait(false);
+        await server.WaitForCompletionAsync().ConfigureAwait(false);
+    }
+    catch (OperationCanceledException)
+    {
+        // Host shutdown
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[{remote}] Error: {ex}");
+    }
+    finally
+    {
+        if (server is not null)
+            await server.StopAsync().ConfigureAwait(false);
+
+        await transport.DisposeAsync().ConfigureAwait(false);
+    }
+
+    Console.WriteLine($"[{remote}] Disconnected.");
 }
 
 ```
