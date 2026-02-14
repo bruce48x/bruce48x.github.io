@@ -392,18 +392,14 @@ git submodule add https://github.com/bruce48x/ULinkRPC-Sample-Server ulinkrpc-sa
 
 通过在 NuGetForUnity GUI 上单击或编写以下内容来`Assets/package.config`添加上面列出的所需库。
 
-[NuGet Gallery | MemoryPack 1.21.4](https://www.nuget.org/packages/MemoryPack#dependencies-body-tab)
-[NuGet Gallery | Kcp 2.7.0](https://www.nuget.org/packages/Kcp)
-[NuGet Gallery | System.Text.Json 10.0.2](https://www.nuget.org/packages/System.Text.Json)
+[NuGet Gallery | ULinkRPC.Runtime 0.1.4](https://www.nuget.org/packages/ULinkRPC.Runtime)
 
 packages.config
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <packages>
-  <package id="Kcp" version="2.7.0" manuallyInstalled="true" />
-  <package id="MemoryPack" version="1.21.4" manuallyInstalled="true" />
-  <package id="System.Text.Json" version="10.0.2" manuallyInstalled="true" />
+  <package id="ULinkRPC.Runtime" version="0.1.4" manuallyInstalled="true" />
 </packages>
 ```
 
