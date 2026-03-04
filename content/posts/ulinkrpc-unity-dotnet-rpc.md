@@ -25,12 +25,10 @@ author: bruce
 
 ## 示例项目
 
-本文配套的示例项目位于：
-- [unity-rpc-starter](https://github.com/bruce48x/unity-rpc-starter)
-
-项目包含两个完整示例：
-- `RpcCall.Json` - JSON + TCP 示例（本教程使用）
-- `RpcCall.MemoryPack` - MemoryPack 示例
+本文配套的示例项目：
+- **服务端**：[ULinkRPC-Sample-Server](https://github.com/bruce48x/ULinkRPC-Sample-Server)
+- **客户端**：[ULinkRPC-Sample-Client](https://github.com/bruce48x/ULinkRPC-Sample-Client)
+- **框架源码**：[unity-rpc-starter](https://github.com/bruce48x/unity-rpc-starter)
 
 ---
 
@@ -575,6 +573,8 @@ ULinkRPC 提供了一个轻量、灵活的 Unity + .NET RPC 解决方案：
 
 ## 参考
 
-- [ULinkRPC GitHub](https://github.com/bruce48x/unity-rpc-starter)
+- [ULinkRPC-Sample-Server](https://github.com/bruce48x/ULinkRPC-Sample-Server) - 服务端示例
+- [ULinkRPC-Sample-Client](https://github.com/bruce48x/ULinkRPC-Sample-Client) - 客户端示例
+- [ULinkRPC 框架源码](https://github.com/bruce48x/unity-rpc-starter)
 - [MagicOnion](https://github.com/Cysharp/MagicOnion)
 - [MessagePack-CSharp](https://github.com/msgpack/msgpack-cli)
