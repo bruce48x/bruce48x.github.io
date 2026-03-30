@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="wrap site-header-inner">
+          <a class="brand" href="{{ "/" | relURL }}">
+            <span class="brand-mark brand-wordmark">Bruce</span>
+            <span class="brand-copy">
+              <span>{{ .Site.Params.tagline }}</span>
+            </span>
+          </a>
+          <nav class="nav">
+            <a href="{{ "/" | relURL }}">首页</a>
+            <a href="{{ "/posts/" | relURL }}">文章</a>
+            {{ with .Site.Params.repo }}<a href="{{ . }}">GitHub</a>{{ end }}
+          </nav>
+        </div>
+      </header>
+      <main class="wrap page-main">
+        {{ block "main" . }}{{ end }}
+      </main>
+      <footer class="site-footer">
+        <div class="wrap site-footer-inner">
+          <p>{{ .Site.Params.footer | default .Site.Params.description }}</p>
+          <p>Built with Hugo, styled without a third-party theme.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+{{ define "main" }}
+  {{ $pages := .Pages.ByDate.Reverse }}
+  {{ if .IsSection }}
+    {{ range $pages.GroupByDate "2006" }}
+      <section class="archive-year">
+        <div class="archive-year-header">
+          <p class="eyebrow">Archive</p>
+          <h2>{{ .Key }}</h2>
+        </div>
+        <div class="post-list archive-list">
+          {{ range .Pages }}
+            <article class="post-card">
+              <p class="meta">{{ .Date.Format "2006-01-02" }}</p>
+              <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+              {{ with .Plain }}<div class="summary">{{ . | truncate 180 }}</div>{{ end }}
+              <a class="text-link" href="{{ .RelPermalink }}">阅读全文</a>
+            </article>
+          {{ end }}
+        </div>
+      </section>
+    {{ end }}
+  {{ else }}
+    <section class="page-banner">
+      <p class="eyebrow">Page</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Content }}<div class="banner-content">{{ . }}</div>{{ end }}
+    </section>
+    <section class="post-list">
+      {{ range $pages }}
+        <article class="post-card">
+          <p class="meta">{{ .Date.Format "2006-01-02" }}</p>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          {{ with .Plain }}<div class="summary">{{ . | truncate 180 }}</div>{{ end }}
+          <a class="text-link" href="{{ .RelPermalink }}">阅读全文</a>
+        </article>
+      {{ end }}
+    </section>
+  {{ end }}
+{{ end }}

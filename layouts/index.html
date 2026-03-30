@@ -1,0 +1,17 @@
+{{ define "main" }}
+  {{ $posts := where site.RegularPages "Section" "posts" }}
+  <section class="page-banner home-banner">
+    <p class="eyebrow">Posts</p>
+    <h1>最新文章</h1>
+  </section>
+  <section class="post-list">
+    {{ range $posts.ByDate.Reverse }}
+      <article class="post-card">
+        <p class="meta">{{ .Date.Format "2006-01-02" }}</p>
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{ with .Plain }}<div class="summary">{{ . | truncate 180 }}</div>{{ end }}
+        <a class="text-link" href="{{ .RelPermalink }}">继续阅读</a>
+      </article>
+    {{ end }}
+  </section>
+{{ end }}
