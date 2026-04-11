@@ -3,7 +3,7 @@
     <header class="article-header">
       <p class="meta">{{ .Date.Format "2006-01-02" }}</p>
       <h1>{{ .Title }}</h1>
-      {{ with .Summary }}<div class="article-summary">{{ . }}</div>{{ end }}
+      {{ with .Params.summary }}<div class="article-summary">{{ . }}</div>{{ end }}
     </header>
 
     <div class="article-layout article-layout-single">
