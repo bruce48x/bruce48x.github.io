@@ -1,5 +1,5 @@
 ---
-title: 利用 Testcontainers 在测试中模拟 MySQL / Redis
+title: 单元测试：利用 Testcontainers 在测试中模拟 MySQL / Redis
 date: '2025-04-10T10:55:00+08:00'
 slug: testcontainers-mysql-redis-unit-tests
 draft: false
@@ -8,11 +8,11 @@ author: bruce
 
 Node.js 项目一旦接入 MySQL 或 Redis，测试就很容易从“验证业务逻辑”变成“先把环境搭起来”。本机手工跑一套数据库当然能测，但它依赖开发机状态；mock 跑得快，但很多真实问题根本测不出来，比如连接参数、SQL 语句、驱动配置、Redis 过期行为。
 
-`Testcontainers` 的做法是：测试开始时临时启动 Docker 容器，测试结束后自动销毁。这样代码连的是真实的 MySQL 和 Redis，但环境仍然由测试自己管理。
+有了 `Testcontainers` 一切都变得简单，它的做法是：测试开始时临时启动 Docker 容器，测试结束后自动销毁。这样代码连的是真实的 MySQL 和 Redis，但环境仍然由测试自己管理。
 
 严格来说，这类测试更接近**集成测试**。不过在实际项目里，它通常就是和单元测试一起放在测试工程里跑的那一层。
 
-这篇文章以 **Node.js** 为主，示例用 `jest`，最后补一个 `.NET` 版本做对照。
+这篇文章以 **Node.js** 为主，最后补一个 `.NET` 版本做对照。
 
 ## 为什么在 Node.js 里值得用 Testcontainers
 
@@ -34,19 +34,18 @@ mock 能解决“接口有没有被调用”的问题，但解决不了这些问
 
 ## 先安装依赖
 
-下面用 `jest` 举例，也可以换成 `vitest` 或 `node:test`，核心思路是一样的。
+下面直接用 Node.js 内置的 `node:test` 举例。
 
 先装依赖：
 
 ```sh
-npm install -D testcontainers jest
+npm install -D testcontainers
 npm install mysql2 ioredis
 ```
 
 这几个包分别负责：
 
 - `testcontainers`：Node.js 版本的容器测试库
-- `jest`：测试框架
 - `mysql2`：连接 MySQL
 - `ioredis`：连接 Redis
 
@@ -57,6 +56,8 @@ npm install mysql2 ioredis
 先看一个最小可用的 MySQL 测试。
 
 ```js
+const { describe, test, before, after } = require("node:test");
+const assert = require("node:assert/strict");
 const { GenericContainer, Wait } = require("testcontainers");
 const mysql = require("mysql2/promise");
 
@@ -64,7 +65,7 @@ describe("mysql with testcontainers", () => {
   let container;
   let connection;
 
-  beforeAll(async () => {
+  before(async () => {
     container = await new GenericContainer("mysql", "8.0")
       .withEnvironment({
         MYSQL_ROOT_PASSWORD: "123456",
@@ -83,7 +84,7 @@ describe("mysql with testcontainers", () => {
     });
   });
 
-  afterAll(async () => {
+  after(async () => {
     if (connection) {
       await connection.end();
     }
@@ -110,7 +111,7 @@ describe("mysql with testcontainers", () => {
       "select count(*) as count from users"
     );
 
-    expect(rows[0].count).toBe(1);
+    assert.equal(rows[0].count, 1);
   });
 });
 ```
@@ -129,6 +130,8 @@ describe("mysql with testcontainers", () => {
 Redis 写法通常更简单：
 
 ```js
+const { describe, test, before, after } = require("node:test");
+const assert = require("node:assert/strict");
 const { GenericContainer, Wait } = require("testcontainers");
 const Redis = require("ioredis");
 
@@ -136,7 +139,7 @@ describe("redis with testcontainers", () => {
   let container;
   let redis;
 
-  beforeAll(async () => {
+  before(async () => {
     container = await new GenericContainer("redis", "7.2")
       .withExposedPorts(6379)
       .withWaitStrategy(Wait.forLogMessage(/Ready to accept connections/i))
@@ -148,7 +151,7 @@ describe("redis with testcontainers", () => {
     });
   });
 
-  afterAll(async () => {
+  after(async () => {
     if (redis) {
       redis.disconnect();
     }
@@ -162,7 +165,7 @@ describe("redis with testcontainers", () => {
     await redis.set("user:1:name", "bruce");
     const value = await redis.get("user:1:name");
 
-    expect(value).toBe("bruce");
+    assert.equal(value, "bruce");
   });
 });
 ```
@@ -173,94 +176,6 @@ describe("redis with testcontainers", () => {
 - key 命名是否统一
 - 过期时间逻辑
 - JSON 序列化和反序列化
-
-## Node.js 版：同时启动 MySQL 和 Redis
-
-很多服务同时依赖数据库和缓存，这时可以在同一个测试套件里一起启动：
-
-```js
-const { GenericContainer, Wait } = require("testcontainers");
-const mysql = require("mysql2/promise");
-const Redis = require("ioredis");
-
-describe("app with mysql and redis", () => {
-  let mysqlContainer;
-  let redisContainer;
-  let db;
-  let redis;
-
-  beforeAll(async () => {
-    mysqlContainer = await new GenericContainer("mysql", "8.0")
-      .withEnvironment({
-        MYSQL_ROOT_PASSWORD: "123456",
-        MYSQL_DATABASE: "testdb",
-      })
-      .withExposedPorts(3306)
-      .withWaitStrategy(Wait.forLogMessage(/ready for connections/i))
-      .start();
-
-    redisContainer = await new GenericContainer("redis", "7.2")
-      .withExposedPorts(6379)
-      .withWaitStrategy(Wait.forLogMessage(/Ready to accept connections/i))
-      .start();
-
-    db = await mysql.createConnection({
-      host: mysqlContainer.getHost(),
-      port: mysqlContainer.getMappedPort(3306),
-      user: "root",
-      password: "123456",
-      database: "testdb",
-    });
-
-    redis = new Redis({
-      host: redisContainer.getHost(),
-      port: redisContainer.getMappedPort(6379),
-    });
-  });
-
-  afterAll(async () => {
-    if (db) {
-      await db.end();
-    }
-
-    if (redis) {
-      redis.disconnect();
-    }
-
-    if (mysqlContainer) {
-      await mysqlContainer.stop();
-    }
-
-    if (redisContainer) {
-      await redisContainer.stop();
-    }
-  });
-
-  test("should save user to mysql and cache to redis", async () => {
-    await db.execute(`
-      create table if not exists users (
-        id bigint primary key auto_increment,
-        name varchar(64) not null
-      )
-    `);
-
-    await db.execute("insert into users(name) values (?)", ["alice"]);
-    await redis.set("user:latest", "alice");
-
-    const [rows] = await db.execute("select name from users limit 1");
-    const cached = await redis.get("user:latest");
-
-    expect(rows[0].name).toBe("alice");
-    expect(cached).toBe("alice");
-  });
-});
-```
-
-这样写的好处很直接：
-
-- 测到的是更接近真实应用的链路
-- 本地和 CI 的依赖启动方式一致
-- 不需要在测试机上提前准备固定端口的 MySQL / Redis
 
 ## 在 Node.js 项目里怎么组织
 
@@ -417,11 +332,9 @@ public sealed class RedisTests : IAsyncLifetime
 }
 ```
 
-如果你本来就是 Node.js 项目，这一节看个思路就够了，重点还是前面的 Node.js 写法。
-
 ## 小结
 
-如果你的 Node.js 测试要碰 MySQL 或 Redis，`Testcontainers` 基本是一个很实用的方案：
+如果你的测试要碰 MySQL 或 Redis，`Testcontainers` 基本是一个很实用的方案：
 
 - 不需要长期维护本地依赖
 - 跑的是真实 MySQL / Redis
